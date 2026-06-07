@@ -1,23 +1,23 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const Navbar: React.FC = () => {
   return (
-    <nav>
+    <nav className="bg-indigo-800 text-white p-4">
       <ul className="flex gap-6">
         <li>
-          <Link to="/">首页</Link>
+          <NavLink to="/" className={({ isActive }) => (isActive ? 'text-white font-bold' : 'text-indigo-200 hover:text-white')}>首页</NavLink>
         </li>
         <li>
-          <Link to="/practice">练习</Link>
+          <NavLink to="/practice" className={({ isActive }) => (isActive ? 'text-white font-bold' : 'text-indigo-200 hover:text-white')}>练习</NavLink>
         </li>
         <li>
-          <Link to="/profile">个人主页</Link>
+          <NavLink to="/profile" className={({ isActive }) => (isActive ? 'text-white font-bold' : 'text-indigo-200 hover:text-white')}>个人主页</NavLink>
         </li>
         <li>
-          <Link to="/login">登录</Link>
+          <NavLink to="/login" className={({ isActive }) => (isActive ? 'text-white font-bold' : 'text-indigo-200 hover:text-white')}>登录</NavLink>
         </li>
         <li>
-          <Link to="/register">注册</Link>
+          <NavLink to="/register" className={({ isActive }) => (isActive ? 'text-white font-bold' : 'text-indigo-200 hover:text-white')}>注册</NavLink>
         </li>
       </ul>
     </nav>
