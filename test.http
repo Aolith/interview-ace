@@ -1,0 +1,19 @@
+### 测试注册接口
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test1234"
+}
+
+###
+
+### 测试登录接口
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test1234"
+}
