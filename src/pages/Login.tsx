@@ -12,11 +12,27 @@ const Login: React.FC = () => {
     setPassword(e.target.value)
   }
   // 处理表单提交
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // 在这里可以添加登录逻辑，例如调用 API 进行验证
-    console.log("Email:", email)
-    console.log("Password:", password)
+    try {
+      const res = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      })
+      if (res.ok) {
+        alert("登录成功！")
+        // 可以在这里进行页面跳转或者其他操作
+      } else {
+        alert("登录失败，请检查用户名和密码。")
+      }
+      //之后在这里处理登录成功后的逻辑，比如存储用户信息等
+    } catch (error) {
+      console.error("登录失败:", error)
+      alert("登录失败，请检查网络连接或稍后再试。")
+    }
   }
 
   return (

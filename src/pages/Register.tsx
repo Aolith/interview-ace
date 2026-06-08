@@ -18,12 +18,26 @@ const Register: React.FC = () => {
     setConfirmPassword(e.target.value)
   }
 
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // 在这里可以添加注册逻辑
-    console.log("Email:", email)
-    console.log("Password:", password)
-    console.log("Confirm Password:", confirmPassword)
+    try {
+      const res = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password, confirmPassword, captcha })
+      })
+      if (res.ok) {
+        alert("注册成功！")
+        // 可以在这里进行页面跳转或者其他操作
+      } else {
+        alert("注册失败，请检查输入信息。")
+      }
+    } catch (error) {
+      console.error("注册失败:", error)
+      alert("注册失败，请检查网络连接或稍后再试。")
+    }
   }
 
   return (
