@@ -11,6 +11,7 @@ interface UserState {
   isLogin: boolean
   login: (email: string, password: string) => Promise<void>
   loginOut: () => void
+  register: (email: string, password: string) => Promise<void>
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -30,6 +31,14 @@ export const useUserStore = create<UserState>((set) => ({
   loginOut: () => {
     localStorage.removeItem('token')
     set({ user: null, token: null, isLogin: false })
+  },
+  register: async (email, password) => {
+    const res = await axios.post('http://localhost:5000/api/users/register', {
+      email,
+      password
+    })
+    const { user } = res.data
+    set({ user })
   }
 }))
 

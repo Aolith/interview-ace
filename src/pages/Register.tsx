@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useUserStore } from '../store/useUserStore'
 const Register: React.FC = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [captcha, setCaptcha] = useState('')
+
+  const register = useUserStore((state) => state.register)
+  const navigate = useNavigate()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -21,22 +26,15 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const res = await fetch("http://localhost:5000/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password, confirmPassword, captcha })
-      })
-      if (res.ok) {
-        alert("注册成功！")
-        // 可以在这里进行页面跳转或者其他操作
-      } else {
-        alert("注册失败，请检查输入信息。")
+      if (password !== confirmPassword) {
+        alert("两次输入的密码不一致")
+        return
       }
-    } catch (error) {
-      console.error("注册失败:", error)
-      alert("注册失败，请检查网络连接或稍后再试。")
+      await register(email, password)
+      navigate("/login")
+    } catch (error: any) {
+      const message = error.response?.data?.message || "注册失败，请检查输入信息。"
+      alert(message)
     }
   }
 
