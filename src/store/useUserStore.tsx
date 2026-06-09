@@ -31,7 +31,7 @@ export const useUserStore = create<UserState>((set) => ({
   isLogin: !!localStorage.getItem('token'),
 
   login: async (email, password) => {
-    const res = await axios.post('http://localhost:5000/api/users/login', {
+    const res = await axios.post('/api/users/login', {
       email,
       password
     })
@@ -44,7 +44,7 @@ export const useUserStore = create<UserState>((set) => ({
     set({ user: null, token: null, isLogin: false })
   },
   register: async (email, password) => {
-    const res = await axios.post('http://localhost:5000/api/users/register', {
+    const res = await axios.post('/api/users/register', {
       email,
       password
     })
@@ -54,7 +54,7 @@ export const useUserStore = create<UserState>((set) => ({
   updateUser: async (updatedFields) => {
     const token = localStorage.getItem('token')
     const res = await axios.put(
-      'http://localhost:5000/api/users/me',
+      '/api/users/me',
       updatedFields,
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -64,7 +64,7 @@ export const useUserStore = create<UserState>((set) => ({
     const token = localStorage.getItem('token')
     if (!token) return
     try {
-      const res = await axios.get('http://localhost:5000/api/users/me', {
+      const res = await axios.get('/api/users/me', {
         headers: { Authorization: `Bearer ${token}` }
       });
       set({ user: res.data.user });
