@@ -1,5 +1,6 @@
 import express from 'express'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 import User from '../models/User'
 
 const userRoutes = express.Router()
@@ -60,10 +61,16 @@ userRoutes.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: '密码错误' })
     }
+    // 生成 JWT token
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET!,
+      { expiresIn: '7d' }
+    )
     //登录成功
     console.log('用户登录成功:', email)
     const { password: _, ...safeUser } = user.toObject()
-    res.json({ user: safeUser })
+    res.json({ user: safeUser, token })
   } catch (error) {
     console.log('登录失败', error)
     res.status(500).json({ message: '服务器内部错误' })
