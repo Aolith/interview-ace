@@ -7,7 +7,7 @@ const Welcome: React.FC = () => {
   const user = useUserStore((state) => state.user);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600  via-blue-300 to-violet-400 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-b from-indigo-600  via-blue-300 to-violet-400 flex items-center justify-center">
       <div className="text-center max-w-2xl mx-auto px-4">
 
         {/* Logo 或图标占位 */}

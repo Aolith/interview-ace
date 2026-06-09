@@ -14,9 +14,8 @@ const Profile: React.FC = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen flex items-start justify-center pt-10 bg-cover bg-center bg-no-repeat relative"
-      style={{ backgroundImage: `url('/profile-bg.jpg')` }}>
-      <div className="bg-white backdrop-blur-sm rounded-xl shadow-lg max-w-2xl w-full mx-4 p-8 relative z-10">
+    <div className="min-h-screen flex items-start justify-center pt-10 bg-gradient-to-b  from-indigo-600  via-blue-300 to-violet-400">
+      <div className="bg-white backdrop-blur-sm rounded-xl shadow-lg max-w-2xl w-full mx-4 p-8 relative">
         {/* 信息展示区域 */}
         <div className="space-y-4 mb-8">
           <div className="flex items-baseline gap-2">
