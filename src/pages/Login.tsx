@@ -1,9 +1,14 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { useUserStore } from "../store/useUserStore"
 const Login: React.FC = () => {
   // 使用 useState 来管理输入框的值
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const login = useUserStore((state) => state.login)
+  const navigate = useNavigate()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -15,23 +20,11 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const res = await fetch("http://localhost:5000/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      })
-      if (res.ok) {
-        alert("登录成功！")
-        // 可以在这里进行页面跳转或者其他操作
-      } else {
-        alert("登录失败，请检查用户名和密码。")
-      }
-      //之后在这里处理登录成功后的逻辑，比如存储用户信息等
-    } catch (error) {
-      console.error("登录失败:", error)
-      alert("登录失败，请检查网络连接或稍后再试。")
+      await login(email, password)
+      navigate("/")
+    } catch (error: any) {
+      const message = error.response?.data?.message || "登录失败，请检查邮箱和密码是否正确"
+      alert(message)
     }
   }
 
