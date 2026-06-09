@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react'
 import { useUserStore } from "../store/useUserStore"
 import { useNavigate } from 'react-router-dom'
 
 const Profile: React.FC = () => {
   const user = useUserStore(state => state.user)
+  const [editingField, setEditingField] = useState<string | null>(null)
+  const [editValue, setEditValue] = useState('')
+  const updateUser = useUserStore((state) => state.updateUser)
 
-  //获取当前用户信息
 
   //退出登录
   const loginOut = useUserStore((state) => state.loginOut)
@@ -19,7 +21,43 @@ const Profile: React.FC = () => {
         <div className="space-y-4 mb-8">
           <div className="flex items-baseline gap-2">
             <dt className="text-sm text-gray-500">用户名:</dt>
-            <dd className="text-gray-900 mt-1">{user?.username || 'candidate'}</dd>
+            {editingField !== 'username' ? (
+              <dd
+                className="text-gray-900 mt-1 cursor-pointer hover:bg-gray-100 rounded px-1 transition"
+                onClick={() => {
+                  setEditingField('username')
+                  setEditValue(user?.username || '')
+                }}
+              >
+                {user?.username || 'candidate'}
+              </dd>
+            ) : (
+              <input
+                type="text"
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                onBlur={async () => {
+                  try {
+                    await updateUser({ username: editValue });
+                    setEditingField(null);
+                  } catch (error) {
+                    alert('更新失败，请重试');
+                  }
+                }}
+                onKeyDown={async (e) => {
+                  if (e.key === 'Enter') {
+                    try {
+                      await updateUser({ username: editValue });
+                      setEditingField(null);
+                    } catch (error) {
+                      alert('更新失败，请重试');
+                    }
+                  }
+                }}
+                className="border border-gray-300 rounded px-2 py-1 w-40 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                autoFocus
+              />
+            )}
           </div>
           <div className="flex items-baseline gap-2">
             <dt className="text-sm text-gray-500">邮箱:</dt>
@@ -27,15 +65,120 @@ const Profile: React.FC = () => {
           </div>
           <div className="flex items-baseline gap-2">
             <dt className="text-sm text-gray-500">性别:</dt>
-            <dd className="text-gray-900 mt-1">{user?.sex || '未知'}</dd>
+            {editingField !== 'sex' ? (
+              <dd
+                className="text-gray-900 mt-1 cursor-pointer hover:bg-gray-100 rounded px-1 transition"
+                onClick={() => {
+                  setEditingField('sex')
+                  setEditValue(user?.sex || '未知')
+                }}
+              >
+                {user?.sex || '未知'}
+              </dd>
+            ) : (
+              <select
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                onBlur={async () => {
+                  try {
+                    await updateUser({ sex: editValue });
+                    setEditingField(null);
+                  } catch (error) {
+                    alert('更新失败，请重试');
+                  }
+                }}
+                className="border border-gray-300 rounded px-2 py-1 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-300 ml-2"
+                autoFocus
+              >
+                <option value="男">男</option>
+                <option value="女">女</option>
+                <option value="未知">未知</option>
+              </select>
+            )}
           </div>
           <div className="flex items-baseline gap-2">
             <dt className="text-sm text-gray-500">年龄:</dt>
-            <dd className="text-gray-900 mt-1">{user?.age || '保密'}</dd>
+            {editingField !== 'age' ? (
+              <dd
+                className="text-gray-900 mt-1 cursor-pointer hover:bg-gray-100 rounded px-1 transition"
+                onClick={() => {
+                  setEditingField('age');
+                  setEditValue(String(user?.age || ''));
+                }}
+              >
+                {user?.age || '未设置'}
+              </dd>
+            ) : (
+              <input
+                type="number"
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                onBlur={async () => {
+                  try {
+                    if (editValue === '') {
+                      setEditingField(null)
+                      return
+                    }
+                    await updateUser({ age: Number(editValue) });
+                    setEditingField(null);
+                  } catch (error) {
+                    alert('更新失败，请重试');
+                  }
+                }}
+                onKeyDown={async (e) => {
+                  if (e.key === 'Enter') {
+                    try {
+                      if (editValue === '') {
+                        setEditingField(null)
+                        return
+                      }
+                      await updateUser({ age: Number(editValue) });
+                      setEditingField(null);
+                    } catch (error) {
+                      alert('更新失败，请重试');
+                    }
+                  }
+                }}
+                className="border border-gray-300 rounded px-2 py-1 w-24 focus:outline-none focus:ring-2 focus:ring-indigo-300 ml-2"
+                autoFocus
+              />
+            )}
           </div>
           <div className="flex items-baseline gap-2">
             <dt className="text-sm text-gray-500">最高学历:</dt>
-            <dd className="text-gray-900 mt-1">{user?.degree || '未设置'}</dd>
+            {editingField !== 'degree' ? (
+              <dd
+                className="text-gray-900 mt-1 cursor-pointer hover:bg-gray-100 rounded px-1 transition"
+                onClick={() => {
+                  setEditingField('degree')
+                  setEditValue(user?.degree || '未设置')
+                }}
+              >
+                {user?.degree || '未设置'}
+              </dd>
+            ) : (
+              <select
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                onBlur={async () => {
+                  try {
+                    await updateUser({ degree: editValue });
+                    setEditingField(null);
+                  } catch (error) {
+                    alert('更新失败，请重试');
+                  }
+                }}
+                className="border border-gray-300 rounded px-2 py-1 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-300 ml-2"
+                autoFocus
+              >
+                <option value="保密">保密</option>
+                <option value="高中">高中</option>
+                <option value="大专">大专</option>
+                <option value="本科">本科</option>
+                <option value="硕士">硕士</option>
+                <option value="博士">博士</option>
+              </select>
+            )}
           </div>
           {/* 上传简历：做成文字链接 */}
           <div className="flex items-baseline gap-2">

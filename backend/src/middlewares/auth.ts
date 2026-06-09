@@ -29,3 +29,5 @@ export const authMiddleware = async (req: AuthRequest, res: Response, next: Next
     return res.status(500).json({ message: '服务器内部错误' })
   }
 }
+
+export default authMiddleware

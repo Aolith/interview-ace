@@ -2,8 +2,10 @@ import express from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import User from '../models/User'
+import authMiddleware, { AuthRequest } from '../middlewares/auth'
 
 const userRoutes = express.Router()
+
 
 //用户注册
 userRoutes.post('/register', async (req, res) => {
@@ -73,6 +75,34 @@ userRoutes.post('/login', async (req, res) => {
     res.json({ user: safeUser, token })
   } catch (error) {
     console.log('登录失败', error)
+    res.status(500).json({ message: '服务器内部错误' })
+  }
+})
+
+//获取当前用户信息
+userRoutes.get('/me', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const user = await User.findById(req.user!._id).select('-password')
+    if (!user) {
+      return res.status(404).json({ message: '用户不存在' })
+    }
+    res.json({ user })
+  } catch (error) {
+    console.log('获取当前用户信息失败', error)
+    res.status(500).json({ message: '服务器内部错误' })
+  }
+})
+
+//更新用户信息
+userRoutes.put('/me', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.user!._id, req.body, { new: true }).select('-password')
+    if (!updatedUser) {
+      return res.status(404).json({ message: '用户不存在' })
+    }
+    res.json({ user: updatedUser })
+  } catch (error) {
+    console.log('更新用户信息失败', error)
     res.status(500).json({ message: '服务器内部错误' })
   }
 })
