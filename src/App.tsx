@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import Practice from './pages/Practice'
 import Navbar from './components/layout/Navbar'
+import Welcome from './pages/Welcome'
 
 function App() {
   //获取当前用户信息
@@ -23,6 +24,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/practice" element={<Practice />} />
+        <Route path="/welcome" element={<Welcome />} />
       </Routes>
     </Router>
   )

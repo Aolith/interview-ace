@@ -189,7 +189,7 @@ const Profile: React.FC = () => {
         {/* 按钮区域 */}
         <div className="flex gap-4 pt-6 border-t border-gray-200">
           <button className="border border-gray-300 text-gray-600 hover:bg-blue-400 font-bold py-2 px-6 rounded-lg transition duration-300">切换主题</button>
-          <button className="border border-gray-300 text-gray-600 hover:bg-red-400 font-bold py-2 px-6 rounded-lg transition duration-300" onClick={() => { loginOut(); navigate('/login') }}>退出登录</button>
+          <button className="border border-gray-300 text-gray-600 hover:bg-red-400 font-bold py-2 px-6 rounded-lg transition duration-300" onClick={() => { loginOut(); navigate('/welcome') }}>退出登录</button>
         </div>
       </div >
     </div >

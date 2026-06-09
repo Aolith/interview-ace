@@ -19,6 +19,9 @@ const Navbar: React.FC = () => {
         <li>
           <NavLink to="/register" className={({ isActive }) => (isActive ? 'text-white font-bold' : 'text-indigo-200 hover:text-white')}>注册</NavLink>
         </li>
+        <li>
+          <NavLink to="/welcome" className={({ isActive }) => (isActive ? 'text-white font-bold' : 'text-indigo-200 hover:text-white')}>欢迎页</NavLink>
+        </li>
       </ul>
     </nav>
   )
