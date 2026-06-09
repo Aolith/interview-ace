@@ -41,7 +41,7 @@ const Register: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-300 via-white to-violet-100">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600  via-blue-300 to-violet-400">
       <div className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-violet-300 mb-6">面试克星注册</h2>
         <form onSubmit={handleSubmit}>
@@ -108,7 +108,7 @@ const Register: React.FC = () => {
           </Link>
         </p>
       </div>
-    </div>
+    </div >
   )
 }
 
