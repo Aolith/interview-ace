@@ -6,6 +6,9 @@ interface UserState {
     _id: string
     username: string
     email: string
+    sex: string
+    age: number
+    degree: string
   } | null
   token: string | null
   isLogin: boolean
