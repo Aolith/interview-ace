@@ -17,11 +17,7 @@ import userRoutes from './router/userRoutes'
 app.use('/api/users', userRoutes)
 
 
-export default app
+app.listen(process.env.PORT, () => {
+  console.log(`服务器启动成功，端口号：${process.env.PORT}`)
+})
 
-if (!process.env.VERCEL) {
-  const PORT = process.env.PORT || 5000
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-  })
-}
