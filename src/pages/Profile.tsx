@@ -31,6 +31,12 @@ const Profile: React.FC = () => {
     formData.append('resume', file) // 字段名必须是 'resume'，和后端 multer 的 upload.single('resume') 对应
 
     try {
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (!allowedTypes.includes(file.type)) {
+        alert('仅支持 PDF 或 Word 文档')
+        if (fileInputRef.current) fileInputRef.current.value = ''
+        return
+      }
       setUploading(true)
       const token = localStorage.getItem('token')
       const res = await axios.post('/api/upload/resume', formData, {
