@@ -23,7 +23,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')))// 配置
 
 export default app
 
-app.listen(process.env.PORT, () => {
-  console.log(`服务器启动成功，端口号：${process.env.PORT}`)
+const PORT = Number(process.env.PORT) || 5000
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`)
 })
-
