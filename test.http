@@ -28,3 +28,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI2Y
 {
   "username":"11"
 }
+
+###
+
+### 测试上传简历接口
+POST http://localhost:5000/api/upload/resume
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODEzMzk5NjUsImV4cCI6MTc4MTk0NDc2NX0.uB_Lhcsfq-0skawoNWeJ2t_8onQbThY0-Ud097eCr-U
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="resume"; filename="胡涵钰_Vue全栈.pdf"
+Content-Type: application/pdf
+
+<"C:\Users\lenovo\Desktop\胡涵钰_Vue全栈.pdf"
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
