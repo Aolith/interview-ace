@@ -1,17 +1,57 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useUserStore } from "../store/useUserStore"
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Profile: React.FC = () => {
   const user = useUserStore(state => state.user)
   const [editingField, setEditingField] = useState<string | null>(null)
   const [editValue, setEditValue] = useState('')
   const updateUser = useUserStore((state) => state.updateUser)
+  const fileInputRef = useRef<HTMLInputElement>(null)// 1. 创建 ref
+  const [uploading, setUploading] = useState(false)  // 2. 创建上传状态
 
 
   //退出登录
   const loginOut = useUserStore((state) => state.loginOut)
   const navigate = useNavigate()
+
+
+  // 点击"点击上传"时，触发隐藏的 input
+  const handleUploadClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  // 用户选择文件后的处理
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    const formData = new FormData()
+    formData.append('resume', file) // 字段名必须是 'resume'，和后端 multer 的 upload.single('resume') 对应
+
+    try {
+      setUploading(true)
+      const token = localStorage.getItem('token')
+      const res = await axios.post('/api/upload/resume', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      alert('简历上传成功！')
+      console.log('上传结果:', res.data)
+      // 这里可以先不做解析，只存文件信息。后续解析后，再更新 user 的其他字段。
+    } catch (error: any) {
+      alert(error.response?.data?.message || '上传失败，请重试');
+    } finally {
+      setUploading(false)
+      // 清空 input 的值，以便重复上传同一个文件时仍能触发 onChange
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-start justify-center pt-10 bg-gradient-to-b  from-indigo-600  via-blue-300 to-violet-400">
@@ -182,7 +222,24 @@ const Profile: React.FC = () => {
           {/* 上传简历：做成文字链接 */}
           <div className="flex items-baseline gap-2">
             <dt className="text-sm text-gray-500 w-20 shrink-0">简历:</dt>
-            <dd className="text-indigo-500 hover:text-blue-600 cursor-pointer transition duration-300">点击上传</dd>
+            <dd>
+              {/* 隐藏的文件选择器 */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                className="hidden"
+              />
+              {/* 点击按钮，触发上传 */}
+              <button
+                onClick={handleUploadClick}
+                disabled={uploading}
+                className="text-indigo-500 hover:text-blue-600 cursor-pointer transition duration-300 disabled:opacity-50"
+              >
+                {uploading ? '上传中...' : '点击上传'}
+              </button>
+            </dd>
           </div>
         </div>
         {/* 按钮区域 */}
