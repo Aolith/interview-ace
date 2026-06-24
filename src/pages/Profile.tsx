@@ -60,7 +60,7 @@ const Profile: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-start justify-center pt-10 bg-gradient-to-b  from-indigo-600  via-blue-300 to-violet-400">
+    <div className="min-h-screen flex items-start justify-center pt-24 bg-gradient-to-b  from-indigo-600  via-blue-300 to-violet-400">
       <div className="bg-white backdrop-blur-sm rounded-xl shadow-lg max-w-2xl w-full mx-4 p-8 relative">
         {/* 信息展示区域 */}
         <div className="space-y-4 mb-8">
