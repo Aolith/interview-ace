@@ -1,6 +1,11 @@
 import express from 'express'
 import multer from 'multer'
 import path from 'path'
+import authMiddleware, { AuthRequest } from '../middlewares/auth'
+import Resume from '../models/Resume'
+const pdfParse = require('pdf-parse')
+import mammoth from 'mammoth'
+import fs from 'fs'
 
 const uploadRoutes = express.Router()
 
@@ -37,19 +42,43 @@ const upload = multer({
 })
 
 // 上传简历
-uploadRoutes.post('/resume', upload.single('resume'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: '请选择要上传的文件' })
+uploadRoutes.post('/resume', authMiddleware, upload.single('resume'), async (req: AuthRequest, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: '请选择要上传的文件' })
+    }
+    const filePath = req.file.path
+    const fileType = req.file.mimetype
+    let rawText = ''
+    //pdf转纯文本
+    if (fileType === 'application/pdf') {
+      const dataBuffer = fs.readFileSync(filePath)
+      const pdfData = await pdfParse(dataBuffer)
+      rawText = pdfData.text
+    }
+    //word转纯文本
+    if (fileType === 'application/msword' || fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+      const result = await mammoth.extractRawText({ path: filePath })
+      rawText = result.value
+    }
+    if (!rawText.trim()) {
+      return res.status(400).json({ message: '文件解析失败，请检查文件内容是否为空' })
+    }
+    // 存入或更新数据库
+    const resume = await Resume.findOneAndUpdate(
+      { userId: req.user!._id },
+      { rawText },
+      { upsert: true, new: true }
+    )
+    res.json({
+      message: '简历上传并解析成功',
+      rawText: resume.rawText,
+      fileName: req.file.filename// 方便前端构建下载链接 
+    })
+  } catch (error) {
+    console.log('上传简历失败', error)
+    res.status(500).json({ message: '服务器内部错误' })
   }
-
-  // 返回文件信息给前端（后续可以存到数据库）
-  res.json({
-    filename: req.file.filename,
-    originalname: req.file.originalname,
-    size: req.file.size,
-    path: req.file.path,
-    url: `/uploads/${req.file.filename}`, // 供前端预览或下载
-  })
 })
 
 
