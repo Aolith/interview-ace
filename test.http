@@ -9,13 +9,13 @@ Content-Type: application/json
 
 ###
 
-### 测试登录接口
-POST http://localhost:5000/api/users/login
+### 测试更新个人信息接口
+PUT http://localhost:5000/api/users/me
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
 
 {
-  "email": "test@example.com",
-  "password": "Test1234"
+  "username":"11"
 }
 
 ###
@@ -23,7 +23,7 @@ Content-Type: application/json
 ### 测试更新个人信息接口
 PUT http://localhost:5000/api/users/:id
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI2YzcyM2E0ZDNhNDdlY2JmY2RhMGUiLCJpYXQiOjE3ODEwMTEyMzcsImV4cCI6MTc4MTYxNjAzN30.XfowvqrOFavUj8IWeCfsnwjaU5Kpct89TrrnS4QEaq0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
 
 {
   "username":"11"
@@ -33,13 +33,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTI2Y
 
 ### 测试上传简历接口
 POST http://localhost:5000/api/upload/resume
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODEzMzk5NjUsImV4cCI6MTc4MTk0NDc2NX0.uB_Lhcsfq-0skawoNWeJ2t_8onQbThY0-Ud097eCr-U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="resume"; filename="胡涵钰_Vue全栈.pdf"
 Content-Type: application/pdf
 
-<"C:\Users\lenovo\Desktop\胡涵钰_Vue全栈.pdf"
+< C:/Users/lenovo/Desktop/胡涵钰_Vue全栈.pdf
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+### 测试获取用户信息接口
+GET http://localhost:5000/api/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
 

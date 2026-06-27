@@ -2,6 +2,7 @@ import express from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import User from '../models/User'
+import Resume from '../models/Resume'
 import authMiddleware, { AuthRequest } from '../middlewares/auth'
 
 const userRoutes = express.Router()
@@ -86,7 +87,19 @@ userRoutes.get('/me', authMiddleware, async (req: AuthRequest, res) => {
     if (!user) {
       return res.status(404).json({ message: '用户不存在' })
     }
-    res.json({ user })
+    // 查询当前用户有没有简历记录
+    const resumeRecord = await Resume.findOne({ userId: req.user!._id })
+
+    // 构造返回数据
+    const response = {
+      user: {
+        ...req.user!.toObject(),
+        hasResume: !!resumeRecord,          // true 或 false
+        rawText: resumeRecord?.rawText || '' // 简历文本
+      }
+    }
+
+    res.json(response)
   } catch (error) {
     console.log('获取当前用户信息失败', error)
     res.status(500).json({ message: '服务器内部错误' })

@@ -3,7 +3,7 @@ import multer from 'multer'
 import path from 'path'
 import authMiddleware, { AuthRequest } from '../middlewares/auth'
 import Resume from '../models/Resume'
-const pdfParse = require('pdf-parse')
+import PDFParser from 'pdf2json'
 import mammoth from 'mammoth'
 import fs from 'fs'
 
@@ -40,6 +40,30 @@ const upload = multer({
   fileFilter,
   limits: { fileSize: 5 * 1024 * 1024 }, // 限制 5MB
 })
+// 提取 PDF 文本的辅助函数
+function extractPDFText(filePath: string): Promise<string> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const pdfBuffer = await fs.promises.readFile(filePath)
+      const pdfParser = new PDFParser()
+
+      pdfParser.on('pdfParser_dataReady', (pdfData) => {
+        const text = pdfData.Pages.map(page =>
+          page.Texts.map(t => decodeURIComponent(t.R[0].T)).join(' ')
+        ).join('\n')
+        resolve(text)
+      })
+
+      pdfParser.on('pdfParser_dataError', (error) => {
+        reject(error)
+      })
+
+      pdfParser.parseBuffer(pdfBuffer)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
 
 // 上传简历
 uploadRoutes.post('/resume', authMiddleware, upload.single('resume'), async (req: AuthRequest, res) => {
@@ -52,9 +76,7 @@ uploadRoutes.post('/resume', authMiddleware, upload.single('resume'), async (req
     let rawText = ''
     //pdf转纯文本
     if (fileType === 'application/pdf') {
-      const dataBuffer = fs.readFileSync(filePath)
-      const pdfData = await pdfParse(dataBuffer)
-      rawText = pdfData.text
+      rawText = await extractPDFText(filePath)
     }
     //word转纯文本
     if (fileType === 'application/msword' || fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
