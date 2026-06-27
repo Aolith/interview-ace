@@ -113,7 +113,19 @@ userRoutes.put('/me', authMiddleware, async (req: AuthRequest, res) => {
     if (!updatedUser) {
       return res.status(404).json({ message: '用户不存在' })
     }
-    res.json({ user: updatedUser })
+    // 查询当前用户有没有简历记录
+    const resumeRecord = await Resume.findOne({ userId: req.user!._id })
+
+    // 构造返回数据
+    const response = {
+      user: {
+        ...req.user!.toObject(),
+        hasResume: !!resumeRecord,          // true 或 false
+        rawText: resumeRecord?.rawText || '' // 简历文本
+      }
+    }
+
+    res.json(response)
   } catch (error) {
     console.log('更新用户信息失败', error)
     res.status(500).json({ message: '服务器内部错误' })

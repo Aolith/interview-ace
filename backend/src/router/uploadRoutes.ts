@@ -90,7 +90,7 @@ uploadRoutes.post('/resume', authMiddleware, upload.single('resume'), async (req
     const resume = await Resume.findOneAndUpdate(
       { userId: req.user!._id },
       { rawText },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     )
     res.json({
       message: '简历上传并解析成功',

@@ -10,7 +10,8 @@ const Profile: React.FC = () => {
   const updateUser = useUserStore((state) => state.updateUser)
   const fileInputRef = useRef<HTMLInputElement>(null)// 1. 创建 ref
   const [uploading, setUploading] = useState(false)  // 2. 创建上传状态
-
+  const hasResume = user?.hasResume
+  const rawText = user?.rawText
 
   //退出登录
   const loginOut = useUserStore((state) => state.loginOut)
@@ -47,7 +48,8 @@ const Profile: React.FC = () => {
       })
       alert('简历上传成功！')
       console.log('上传结果:', res.data)
-      // 这里可以先不做解析，只存文件信息。后续解析后，再更新 user 的其他字段。
+      // 立即更新 Zustand Store，让页面按钮切换
+      await updateUser({ hasResume: true, rawText: res.data.rawText } as any)
     } catch (error: any) {
       alert(error.response?.data?.message || '上传失败，请重试');
     } finally {
@@ -238,13 +240,34 @@ const Profile: React.FC = () => {
                 className="hidden"
               />
               {/* 点击按钮，触发上传 */}
-              <button
-                onClick={handleUploadClick}
-                disabled={uploading}
-                className="text-indigo-500 hover:text-blue-600 cursor-pointer transition duration-300 disabled:opacity-50"
-              >
-                {uploading ? '上传中...' : '点击上传'}
-              </button>
+              {hasResume ? (
+                // 有简历：显示预览和更新
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => alert(rawText || '暂无简历内容')}
+                    className="text-indigo-500 hover:text-blue-600 cursor-pointer transition duration-300"
+                  >
+                    预览简历
+                  </button>
+                  <span className="text-gray-300">|</span>
+                  <button
+                    onClick={handleUploadClick}
+                    disabled={uploading}
+                    className="text-gray-500 hover:text-blue-500 cursor-pointer transition duration-300 disabled:opacity-50"
+                  >
+                    {uploading ? '上传中...' : '更新简历'}
+                  </button>
+                </div>
+              ) : (
+                // 无简历：显示上传
+                <button
+                  onClick={handleUploadClick}
+                  disabled={uploading}
+                  className="text-indigo-500 hover:text-blue-500 cursor-pointer transition duration-300 disabled:opacity-50"
+                >
+                  {uploading ? '上传中...' : '点击上传'}
+                </button>
+              )}
             </dd>
           </div>
         </div>

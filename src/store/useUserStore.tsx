@@ -9,6 +9,8 @@ interface UserState {
     sex: string
     age: number
     degree: string
+    hasResume?: boolean
+    rawText?: string
   } | null
   token: string | null
   isLogin: boolean
