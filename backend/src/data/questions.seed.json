@@ -1,0 +1,752 @@
+[
+  {
+    "type": "single",
+    "category": "HTML/CSS",
+    "difficulty": "easy",
+    "question": "以下哪个HTML标签用于定义网页的标题（显示在浏览器标签栏）？",
+    "options": [
+      "<title>",
+      "<head>",
+      "<body>",
+      "<h1>"
+    ],
+    "correctAnswer": "<title>",
+    "explanation": "<title>标签定义网页的标题，内容会显示在浏览器的标签栏上；<head>是文档头部容器，<body>是文档主体，<h1>是页面内的一级标题。"
+  },
+  {
+    "type": "single",
+    "category": "HTML/CSS",
+    "difficulty": "easy",
+    "question": "CSS中，以下哪个属性用于设置元素的外边距？",
+    "options": [
+      "padding",
+      "margin",
+      "border",
+      "outline"
+    ],
+    "correctAnswer": "margin",
+    "explanation": "margin属性设置元素的外边距，padding设置内边距，border设置边框，outline设置轮廓线且不占空间。"
+  },
+  {
+    "type": "single",
+    "category": "HTML/CSS",
+    "difficulty": "easy",
+    "question": "以下哪个CSS选择器优先级最高？",
+    "options": [
+      "类选择器",
+      "标签选择器",
+      "ID选择器",
+      "通配符选择器"
+    ],
+    "correctAnswer": "ID选择器",
+    "explanation": "CSS选择器优先级从高到低：行内样式 > ID选择器 > 类选择器 > 标签选择器 > 通配符选择器。ID选择器具有唯一性，优先级高于类选择器。"
+  },
+  {
+    "type": "single",
+    "category": "HTML/CSS",
+    "difficulty": "medium",
+    "question": "关于flex布局，以下说法错误的是？",
+    "options": [
+      "justify-content控制主轴对齐方式",
+      "align-items控制交叉轴对齐方式",
+      "flex-direction默认值为row",
+      "flex子元素默认不收缩"
+    ],
+    "correctAnswer": "flex子元素默认不收缩",
+    "explanation": "flex子元素的flex-shrink默认值为1，即空间不足时会自动收缩。flex-grow默认值为0，即不主动放大。其余三个选项描述均正确。"
+  },
+  {
+    "type": "single",
+    "category": "HTML/CSS",
+    "difficulty": "medium",
+    "question": "以下哪种方式可以清除浮动？",
+    "options": [
+      "给父元素设置overflow: hidden",
+      "给浮动元素设置clear: both",
+      "给父元素设置float: left",
+      "给父元素设置position: relative"
+    ],
+    "correctAnswer": "给父元素设置overflow: hidden",
+    "explanation": "父元素设置overflow: hidden可以触发BFC，从而包含浮动元素，达到清除浮动效果。clear属性应该加在浮动元素后面的元素上，而非浮动元素本身。"
+  },
+  {
+    "type": "single",
+    "category": "HTML/CSS",
+    "difficulty": "medium",
+    "question": "关于CSS盒模型，标准盒模型与IE盒模型的区别是？",
+    "options": [
+      "标准盒模型width包含padding和border",
+      "IE盒模型width包含padding和border",
+      "标准盒模型margin不占空间",
+      "IE盒模型不支持margin"
+    ],
+    "correctAnswer": "IE盒模型width包含padding和border",
+    "explanation": "标准盒模型width仅指内容宽度，IE盒模型（怪异盒模型）width包含content+padding+border。可通过box-sizing属性切换两种模式。"
+  },
+  {
+    "type": "single",
+    "category": "HTML/CSS",
+    "difficulty": "medium",
+    "question": "以下哪个属性不能实现元素隐藏且不占位置？",
+    "options": [
+      "display: none",
+      "visibility: hidden",
+      "opacity: 0 + position: absolute移出视口",
+      "width: 0; height: 0; overflow: hidden"
+    ],
+    "correctAnswer": "visibility: hidden",
+    "explanation": "visibility: hidden会隐藏元素但仍占据原有布局空间。display: none会让元素完全脱离文档流，不占位置。"
+  },
+  {
+    "type": "text",
+    "category": "HTML/CSS",
+    "difficulty": "hard",
+    "question": "请简述BFC的概念、触发条件及应用场景。",
+    "options": [],
+    "correctAnswer": "BFC即块级格式化上下文，是独立的渲染区域，内部元素不会影响外部。触发条件：float不为none、position为absolute/fixed、overflow不为visible、display为inline-block/flex/grid等。应用：清除浮动、防止margin重叠、自适应两栏布局。",
+    "explanation": "BFC是CSS渲染的核心概念，理解它能解决很多布局问题。触发BFC后，容器内浮动元素不会溢出，垂直margin不会与外部重叠。"
+  },
+  {
+    "type": "text",
+    "category": "HTML/CSS",
+    "difficulty": "hard",
+    "question": "请说明CSS重排（reflow）和重绘（repaint）的区别及优化方法。",
+    "options": [],
+    "correctAnswer": "重排是元素几何属性变化导致重新计算布局，开销大；重绘是样式变化不影响布局，只重新绘制像素，开销较小。优化：批量修改DOM、使用class切换样式、避免频繁读取offset等属性、使用文档碎片、对动画元素使用absolute或fixed定位。",
+    "explanation": "重排一定触发重绘，重绘不一定触发重排。频繁重排是页面性能瓶颈，应尽量减少布局计算次数，将动画元素脱离文档流可避免影响整体。"
+  },
+  {
+    "type": "text",
+    "category": "HTML/CSS",
+    "difficulty": "hard",
+    "question": "如何实现一个水平垂直居中的布局？至少写出三种方法。",
+    "options": [],
+    "correctAnswer": "1. flex布局：父元素display:flex; justify-content:center; align-items:center。2. 绝对定位+transform：子元素position:absolute; top:50%; left:50%; transform:translate(-50%,-50%)。3. grid布局：父元素display:grid; place-items:center。4. 绝对定位+margin:auto：子元素position:absolute; 上下左右为0; margin:auto。",
+    "explanation": "flex和grid是现代推荐方案，代码简洁且适配性好。transform方法兼容性较好，适合需要兼容低版本浏览器的场景。"
+  },
+  {
+    "type": "single",
+    "category": "JavaScript",
+    "difficulty": "easy",
+    "question": "以下哪个不是JavaScript的基本数据类型？",
+    "options": [
+      "string",
+      "number",
+      "array",
+      "boolean"
+    ],
+    "correctAnswer": "array",
+    "explanation": "JavaScript基本数据类型有string、number、boolean、null、undefined、symbol、bigint七种。array属于引用数据类型，本质是对象。"
+  },
+  {
+    "type": "single",
+    "category": "JavaScript",
+    "difficulty": "easy",
+    "question": "console.log(typeof null)的输出结果是？",
+    "options": [
+      "null",
+      "undefined",
+      "object",
+      "number"
+    ],
+    "correctAnswer": "object",
+    "explanation": "这是JavaScript的历史遗留bug，typeof null返回'object'。null是基本类型但typeof检测结果有误，判断null需用===null。"
+  },
+  {
+    "type": "single",
+    "category": "JavaScript",
+    "difficulty": "easy",
+    "question": "以下哪个方法可以遍历数组并返回新数组？",
+    "options": [
+      "forEach",
+      "map",
+      "push",
+      "pop"
+    ],
+    "correctAnswer": "map",
+    "explanation": "map方法遍历数组，对每个元素执行回调并返回新数组。forEach只遍历不返回值，push和pop是修改原数组的栈方法。"
+  },
+  {
+    "type": "single",
+    "category": "JavaScript",
+    "difficulty": "medium",
+    "question": "关于闭包，以下说法正确的是？",
+    "options": [
+      "闭包会导致内存泄漏，应该避免使用",
+      "闭包是指函数可以访问其外部作用域的变量",
+      "闭包只能在函数内部创建函数",
+      "闭包中的变量会在函数执行完后立即销毁"
+    ],
+    "correctAnswer": "闭包是指函数可以访问其外部作用域的变量",
+    "explanation": "闭包是函数和其词法环境的组合，内部函数可以访问外部函数作用域的变量。合理使用闭包不会造成内存泄漏，只有不当引用才会。"
+  },
+  {
+    "type": "single",
+    "category": "JavaScript",
+    "difficulty": "medium",
+    "question": "以下关于Promise的说法，错误的是？",
+    "options": [
+      "Promise有pending、fulfilled、rejected三种状态",
+      "Promise状态一旦改变就不能再变",
+      "then方法返回一个新的Promise",
+      "Promise.all在任意一个成功时就会返回"
+    ],
+    "correctAnswer": "Promise.all在任意一个成功时就会返回",
+    "explanation": "Promise.all等待所有Promise都成功才返回成功数组，只要有一个失败就立即返回失败。Promise.race才是任意一个先完成就返回结果。"
+  },
+  {
+    "type": "single",
+    "category": "JavaScript",
+    "difficulty": "medium",
+    "question": "关于this指向，以下描述错误的是？",
+    "options": [
+      "普通函数调用时this指向全局对象（非严格模式）",
+      "箭头函数的this在定义时确定",
+      "call/apply/bind可以改变箭头函数的this",
+      "对象方法调用时this指向该对象"
+    ],
+    "correctAnswer": "call/apply/bind可以改变箭头函数的this",
+    "explanation": "箭头函数没有自己的this，它的this继承自外层作用域，且无法通过call、apply、bind改变。普通函数的this由调用方式决定。"
+  },
+  {
+    "type": "single",
+    "category": "JavaScript",
+    "difficulty": "medium",
+    "question": "以下代码输出什么？for(var i=0;i<3;i++){setTimeout(()=>console.log(i),0)}",
+    "options": [
+      "0 1 2",
+      "3 3 3",
+      "0 0 0",
+      "1 2 3"
+    ],
+    "correctAnswer": "3 3 3",
+    "explanation": "var声明的变量没有块级作用域，全局只有一个i。setTimeout异步执行，循环结束时i已变为3，三个定时器都打印3。用let可解决此问题。"
+  },
+  {
+    "type": "text",
+    "category": "JavaScript",
+    "difficulty": "hard",
+    "question": "请简述JavaScript的事件循环机制（Event Loop）。",
+    "options": [],
+    "correctAnswer": "JS是单线程，通过事件循环处理异步任务。执行栈先执行同步代码，执行完后去任务队列读取任务。任务分为宏任务（script、setTimeout、I/O）和微任务（Promise.then、mutationObserver）。每次执行完一个宏任务前，会清空所有微任务。",
+    "explanation": "事件循环是JS异步编程的核心。微任务优先级高于宏任务，每次宏任务执行前确保微任务队列清空，理解这点是面试常考点。"
+  },
+  {
+    "type": "text",
+    "category": "JavaScript",
+    "difficulty": "hard",
+    "question": "请解释原型链及继承的实现方式。",
+    "options": [],
+    "correctAnswer": "每个对象都有__proto__指向其构造函数的prototype原型对象，层层向上形成原型链。访问属性时沿原型链查找，直到null。继承实现：原型链继承、构造函数继承、组合继承、寄生组合继承、ES6 class extends。",
+    "explanation": "原型链是JS面向对象的核心机制。寄生组合继承是最理想的继承方式，ES6的class本质是语法糖，底层仍是原型机制。"
+  },
+  {
+    "type": "text",
+    "category": "JavaScript",
+    "difficulty": "hard",
+    "question": "请实现一个防抖函数debounce。",
+    "options": [],
+    "correctAnswer": "function debounce(fn, delay) { let timer = null; return function(...args) { clearTimeout(timer); timer = setTimeout(() => fn.apply(this, args), delay); } }。核心思想：多次触发只执行最后一次，每次触发都清除之前的定时器重新计时。",
+    "explanation": "防抖用于高频触发场景如输入搜索，避免频繁执行。节流与之不同，节流是规定时间内只执行一次。两者都是性能优化常用手段。"
+  },
+  {
+    "type": "single",
+    "category": "React",
+    "difficulty": "easy",
+    "question": "React中，以下哪个Hook用于管理组件状态？",
+    "options": [
+      "useEffect",
+      "useState",
+      "useContext",
+      "useRef"
+    ],
+    "correctAnswer": "useState",
+    "explanation": "useState是最基础的状态Hook，返回状态值和更新函数。useEffect处理副作用，useContext消费上下文，useRef保存可变值。"
+  },
+  {
+    "type": "single",
+    "category": "React",
+    "difficulty": "easy",
+    "question": "关于JSX，以下说法正确的是？",
+    "options": [
+      "JSX可以直接在浏览器中运行",
+      "JSX中class属性直接写class即可",
+      "JSX最终会被编译为React.createElement调用",
+      "JSX中只能有一个子元素"
+    ],
+    "correctAnswer": "JSX最终会被编译为React.createElement调用",
+    "explanation": "JSX是语法糖，需通过Babel编译为React.createElement才能运行。class要写成className，组件可以返回Fragment或数组包含多个子元素。"
+  },
+  {
+    "type": "single",
+    "category": "React",
+    "difficulty": "easy",
+    "question": "React组件的生命周期中，componentDidMount在什么时候执行？",
+    "options": [
+      "组件渲染前",
+      "组件挂载到DOM后",
+      "组件更新后",
+      "组件卸载前"
+    ],
+    "correctAnswer": "组件挂载到DOM后",
+    "explanation": "componentDidMount在组件首次渲染完成并插入DOM后执行，适合发起网络请求、订阅事件、操作DOM等副作用操作。"
+  },
+  {
+    "type": "single",
+    "category": "React",
+    "difficulty": "medium",
+    "question": "关于useEffect，以下说法错误的是？",
+    "options": [
+      "第二个参数是依赖数组",
+      "空依赖数组表示只在挂载时执行一次",
+      "没有依赖数组则每次渲染都执行",
+      "返回的清理函数只在卸载时执行"
+    ],
+    "correctAnswer": "返回的清理函数只在卸载时执行",
+    "explanation": "useEffect返回的清理函数不仅在组件卸载时执行，在每次重新执行effect前也会执行，用于清理上一次的副作用。"
+  },
+  {
+    "type": "single",
+    "category": "React",
+    "difficulty": "medium",
+    "question": "React中key的作用是什么？",
+    "options": [
+      "给元素添加唯一标识用于样式选择",
+      "帮助Diff算法识别元素身份，优化列表渲染",
+      "用于表单提交时的数据标识",
+      "提高代码可读性"
+    ],
+    "correctAnswer": "帮助Diff算法识别元素身份，优化列表渲染",
+    "explanation": "key是React Diff算法的重要依据，通过key判断哪些元素需要更新、移动或删除，避免不必要的DOM重建。不建议用index作为key。"
+  },
+  {
+    "type": "single",
+    "category": "React",
+    "difficulty": "medium",
+    "question": "关于React虚拟DOM，以下描述正确的是？",
+    "options": [
+      "虚拟DOM就是真实DOM的副本，操作完全一样",
+      "虚拟DOM通过Diff算法最小化真实DOM操作",
+      "虚拟DOM比直接操作真实DOM永远更快",
+      "虚拟DOM是React独有的技术"
+    ],
+    "correctAnswer": "虚拟DOM通过Diff算法最小化真实DOM操作",
+    "explanation": "虚拟DOM是JS对象描述的DOM结构，通过前后对比找出最小差异再批量更新真实DOM。复杂场景下性能更优，简单场景未必更快，Vue也有类似机制。"
+  },
+  {
+    "type": "single",
+    "category": "React",
+    "difficulty": "medium",
+    "question": "useCallback和useMemo的区别是？",
+    "options": [
+      "useCallback缓存函数，useMemo缓存计算结果",
+      "useCallback缓存值，useMemo缓存函数",
+      "两者完全一样",
+      "useCallback用于类组件，useMemo用于函数组件"
+    ],
+    "correctAnswer": "useCallback缓存函数，useMemo缓存计算结果",
+    "explanation": "useCallback返回记忆化的函数引用，useMemo返回记忆化的计算值。useCallback(fn, deps)等价于useMemo(() => fn, deps)，都用于性能优化。"
+  },
+  {
+    "type": "text",
+    "category": "React",
+    "difficulty": "hard",
+    "question": "请简述React Fiber架构的核心思想。",
+    "options": [],
+    "correctAnswer": "Fiber将渲染工作拆分成小任务单元，可中断、可恢复、有优先级。通过requestIdleCallback利用浏览器空闲时间执行，避免长时间阻塞主线程。核心是链表结构的Fiber节点，支持任务分片和优先级调度。",
+    "explanation": "Fiber解决了React15同步渲染的卡顿问题，实现时间切片和优先级调度。每个Fiber节点对应一个组件，记录节点信息和副作用。"
+  },
+  {
+    "type": "text",
+    "category": "React",
+    "difficulty": "hard",
+    "question": "React中setState是同步还是异步？为什么？",
+    "options": [],
+    "correctAnswer": "React18之前：合成事件和生命周期中是异步批量更新，原生事件和setTimeout中是同步。React18之后默认自动批处理，都是异步批量更新。原因是批量更新减少渲染次数提升性能，避免频繁触发重渲染。",
+    "explanation": "setState的异步不是由异步代码实现，而是React的批量更新机制。React18引入并发特性后，统一了批处理行为。"
+  },
+  {
+    "type": "text",
+    "category": "React",
+    "difficulty": "hard",
+    "question": "请解释React Context的使用场景及常见性能问题。",
+    "options": [],
+    "correctAnswer": "Context用于跨层级共享数据，避免props层层传递。性能问题：Provider的value变化时，所有消费该Context的组件都会重渲染，即使只用到部分数据。优化：拆分Context、使用memo包裹子组件、useMemo优化value、使用选择器模式。",
+    "explanation": "Context适合低频更新的全局数据如主题、用户信息。高频更新场景建议用状态管理库。合理拆分和记忆化是优化关键。"
+  },
+  {
+    "type": "single",
+    "category": "Vue",
+    "difficulty": "easy",
+    "question": "Vue3中，组合式API的入口函数是？",
+    "options": [
+      "created",
+      "mounted",
+      "setup",
+      "data"
+    ],
+    "correctAnswer": "setup",
+    "explanation": "setup是Vue3组合式API的入口，在组件创建之前执行，返回的数据和方法可在模板中使用。created和mounted是选项式API的生命周期钩子。"
+  },
+  {
+    "type": "single",
+    "category": "Vue",
+    "difficulty": "easy",
+    "question": "以下哪个指令用于双向数据绑定？",
+    "options": [
+      "v-bind",
+      "v-model",
+      "v-on",
+      "v-if"
+    ],
+    "correctAnswer": "v-model",
+    "explanation": "v-model实现表单元素与数据的双向绑定，本质是v-bind绑定value加v-on监听输入事件的语法糖。v-bind是单向绑定。"
+  },
+  {
+    "type": "single",
+    "category": "Vue",
+    "difficulty": "easy",
+    "question": "Vue中v-for的key属性的主要作用是？",
+    "options": [
+      "标识列表项的索引",
+      "帮助Vue识别节点身份，优化列表更新",
+      "用于CSS选择器",
+      "给元素添加ID"
+    ],
+    "correctAnswer": "帮助Vue识别节点身份，优化列表更新",
+    "explanation": "key配合虚拟DOM的Diff算法，高效更新列表。有key时Vue能准确追踪每个节点，减少DOM操作，提升列表渲染性能。"
+  },
+  {
+    "type": "single",
+    "category": "Vue",
+    "difficulty": "medium",
+    "question": "关于Vue响应式原理，Vue3使用的是？",
+    "options": [
+      "Object.defineProperty",
+      "Proxy",
+      "Object.observe",
+      "MutationObserver"
+    ],
+    "correctAnswer": "Proxy",
+    "explanation": "Vue3使用Proxy代理对象实现响应式，可以监听数组变化、动态属性增删等。Vue2使用Object.defineProperty，有无法监听数组下标和新增属性的局限。"
+  },
+  {
+    "type": "single",
+    "category": "Vue",
+    "difficulty": "medium",
+    "question": "以下关于computed和watch的区别，说法错误的是？",
+    "options": [
+      "computed有缓存，watch没有",
+      "computed适合计算派生值，watch适合监听变化执行副作用",
+      "computed必须有返回值",
+      "watch不能监听多个数据源"
+    ],
+    "correctAnswer": "watch不能监听多个数据源",
+    "explanation": "watch可以同时监听多个数据源，传入数组即可。computed依赖缓存，依赖不变则不重新计算；watch每次变化都会执行回调。"
+  },
+  {
+    "type": "single",
+    "category": "Vue",
+    "difficulty": "medium",
+    "question": "Vue中nextTick的作用是？",
+    "options": [
+      "设置定时器延迟执行",
+      "在DOM更新完成后执行回调",
+      "用于异步请求数据",
+      "组件挂载后的钩子"
+    ],
+    "correctAnswer": "在DOM更新完成后执行回调",
+    "explanation": "Vue更新DOM是异步批量的，nextTick可以在DOM更新渲染完成后执行回调，常用于获取更新后的DOM元素或尺寸。"
+  },
+  {
+    "type": "single",
+    "category": "Vue",
+    "difficulty": "medium",
+    "question": "关于Vue组件通信，以下说法错误的是？",
+    "options": [
+      "父传子用props",
+      "子传父用$emit触发事件",
+      "兄弟组件可以直接通信",
+      "provide/inject用于跨层级传值"
+    ],
+    "correctAnswer": "兄弟组件可以直接通信",
+    "explanation": "Vue中兄弟组件不能直接通信，需通过共同父组件中转，或使用事件总线、状态管理库。父子通信是基础的props和emit模式。"
+  },
+  {
+    "type": "text",
+    "category": "Vue",
+    "difficulty": "hard",
+    "question": "请简述Vue3 Diff算法的核心优化策略。",
+    "options": [],
+    "correctAnswer": "Vue3 Diff采用双端比较+最长递增子序列优化。先从两端向中间对比相同节点，找出需要移动的部分，再通过最长递增子序列算法确定最少移动次数，最大化复用DOM节点，相比Vue2效率大幅提升。",
+    "explanation": "最长递增子序列是Vue3 Diff的核心亮点，时间复杂度从O(n²)降到O(n log n)。静态提升、补丁标记等编译期优化也大幅提升了性能。"
+  },
+  {
+    "type": "text",
+    "category": "Vue",
+    "difficulty": "hard",
+    "question": "Vue3中ref和reactive的区别是什么？",
+    "options": [],
+    "correctAnswer": "ref用于基本类型和对象，返回带value属性的响应式对象，模板中自动解包；reactive只能用于对象类型，直接访问属性。ref底层是getter/setter，reactive底层是Proxy。reactive解构会丢失响应性，ref不会。",
+    "explanation": "ref更通用，基本类型必须用ref。reactive适合聚合数据结构。toRefs可以将reactive对象转为ref集合，解决解构丢失响应性问题。"
+  },
+  {
+    "type": "text",
+    "category": "Vue",
+    "difficulty": "hard",
+    "question": "请解释Vue的keep-alive组件及其作用。",
+    "options": [],
+    "correctAnswer": "keep-alive是内置组件，包裹动态组件时会缓存不活动的组件实例，避免重复创建销毁。有include、exclude、max三个属性。被缓存组件会激活activated和deactivated生命周期钩子，常用于列表页切详情保留滚动位置等场景。",
+    "explanation": "keep-alive本质是LRU缓存策略，能显著提升重复渲染的性能。但缓存过多组件会占用内存，需合理设置max和清理策略。"
+  },
+  {
+    "type": "single",
+    "category": "网络与浏览器",
+    "difficulty": "easy",
+    "question": "HTTP状态码404表示什么？",
+    "options": [
+      "服务器内部错误",
+      "请求的资源未找到",
+      "请求成功",
+      "重定向"
+    ],
+    "correctAnswer": "请求的资源未找到",
+    "explanation": "404是客户端错误码，表示服务器无法找到请求的资源。200表示成功，500表示服务器内部错误，3xx表示重定向。"
+  },
+  {
+    "type": "single",
+    "category": "网络与浏览器",
+    "difficulty": "easy",
+    "question": "以下哪个不是HTTP请求方法？",
+    "options": [
+      "GET",
+      "POST",
+      "SEND",
+      "DELETE"
+    ],
+    "correctAnswer": "SEND",
+    "explanation": "常见HTTP方法有GET、POST、PUT、DELETE、PATCH、HEAD、OPTIONS等。SEND不是标准HTTP方法。"
+  },
+  {
+    "type": "single",
+    "category": "网络与浏览器",
+    "difficulty": "easy",
+    "question": "浏览器的同源策略限制的是？",
+    "options": [
+      "不同域名之间的脚本请求",
+      "不同页面的图片加载",
+      "不同域名的CSS引用",
+      "不同域名的script标签加载"
+    ],
+    "correctAnswer": "不同域名之间的脚本请求",
+    "explanation": "同源策略限制脚本发起的跨域HTTP请求和DOM访问。图片、CSS、script等标签加载资源不受同源限制，这也是JSONP可行的基础。"
+  },
+  {
+    "type": "single",
+    "category": "网络与浏览器",
+    "difficulty": "medium",
+    "question": "关于Cookie和LocalStorage的区别，说法错误的是？",
+    "options": [
+      "Cookie容量约4KB，LocalStorage约5MB",
+      "Cookie会随请求发送到服务器",
+      "LocalStorage有过期时间",
+      "Cookie可设置过期时间"
+    ],
+    "correctAnswer": "LocalStorage有过期时间",
+    "explanation": "LocalStorage是持久化存储，没有过期时间，除非手动清除。Cookie可设置expires或max-age控制过期时间，且自动随请求头发送。"
+  },
+  {
+    "type": "single",
+    "category": "网络与浏览器",
+    "difficulty": "medium",
+    "question": "以下哪种方式不能解决跨域问题？",
+    "options": [
+      "CORS",
+      "JSONP",
+      "反向代理",
+      "LocalStorage"
+    ],
+    "correctAnswer": "LocalStorage",
+    "explanation": "LocalStorage是浏览器存储方案，与跨域无关。CORS是标准跨域解决方案，JSONP利用script标签不受限的特点，反向代理在服务端转发请求。"
+  },
+  {
+    "type": "single",
+    "category": "网络与浏览器",
+    "difficulty": "medium",
+    "question": "HTTPS相比HTTP的主要优势是？",
+    "options": [
+      "速度更快",
+      "加密传输更安全",
+      "兼容性更好",
+      "服务器负载更小"
+    ],
+    "correctAnswer": "加密传输更安全",
+    "explanation": "HTTPS在HTTP基础上加了SSL/TLS加密层，数据传输过程中加密，防止窃听和篡改。缺点是握手耗时、服务器计算开销大。"
+  },
+  {
+    "type": "single",
+    "category": "网络与浏览器",
+    "difficulty": "medium",
+    "question": "浏览器缓存中，强缓存的标识是？",
+    "options": [
+      "Cache-Control和Expires",
+      "ETag和Last-Modified",
+      "If-None-Match",
+      "If-Modified-Since"
+    ],
+    "correctAnswer": "Cache-Control和Expires",
+    "explanation": "强缓存通过Cache-Control和Expires控制，命中则直接从本地取，不发请求。ETag和Last-Modified是协商缓存的标识，需要发请求验证。"
+  },
+  {
+    "type": "text",
+    "category": "网络与浏览器",
+    "difficulty": "hard",
+    "question": "请简述从输入URL到页面展示的完整过程。",
+    "options": [],
+    "correctAnswer": "1. DNS解析域名到IP；2. 建立TCP连接（三次握手）；3. 发送HTTP请求；4. 服务器处理返回响应；5. 浏览器解析HTML构建DOM树，解析CSS构建CSSOM树，合并生成渲染树；6. 布局计算位置尺寸；7. 绘制页面像素；8. 合成图层显示。",
+    "explanation": "这是经典面试题，考察浏览器工作原理全貌。重点理解渲染流水线：解析→布局→绘制→合成，以及关键路径优化点。"
+  },
+  {
+    "type": "text",
+    "category": "网络与浏览器",
+    "difficulty": "hard",
+    "question": "请解释TCP三次握手和四次挥手的过程及原因。",
+    "options": [],
+    "correctAnswer": "三次握手：客户端发SYN→服务端回SYN+ACK→客户端发ACK。目的是确认双方收发能力正常，防止已失效的连接请求到达服务器。四次挥手：主动方发FIN→被动方回ACK→被动方发FIN→主动方回ACK。原因是关闭时被动方可能还有数据未发送完，需要分两步。",
+    "explanation": "三次握手确保双向可靠连接，两次不够。四次挥手因为TCP是全双工，两个方向需要分别关闭。TIME_WAIT状态确保最后一个ACK能到达。"
+  },
+  {
+    "type": "text",
+    "category": "网络与浏览器",
+    "difficulty": "hard",
+    "question": "什么是XSS攻击？如何防范？",
+    "options": [],
+    "correctAnswer": "XSS即跨站脚本攻击，攻击者注入恶意脚本到页面，盗取用户信息。防范：对用户输入转义过滤、使用CSP内容安全策略、设置HttpOnly Cookie、使用前端框架自带的转义机制、避免使用innerHTML插入未过滤内容。",
+    "explanation": "XSS分为反射型、存储型和DOM型。现代框架默认自动转义模板内容，大大降低了XSS风险，但动态插入HTML仍需谨慎。"
+  },
+  {
+    "type": "single",
+    "category": "工程化",
+    "difficulty": "easy",
+    "question": "以下哪个不是前端构建工具？",
+    "options": [
+      "Webpack",
+      "Vite",
+      "Babel",
+      "MySQL"
+    ],
+    "correctAnswer": "MySQL",
+    "explanation": "MySQL是关系型数据库，属于后端技术。Webpack和Vite是构建工具，Babel是JavaScript编译工具，都属于前端工程化范畴。"
+  },
+  {
+    "type": "single",
+    "category": "工程化",
+    "difficulty": "easy",
+    "question": "npm中，package.json的哪个字段用于定义生产环境依赖？",
+    "options": [
+      "devDependencies",
+      "dependencies",
+      "scripts",
+      "peerDependencies"
+    ],
+    "correctAnswer": "dependencies",
+    "explanation": "dependencies是生产依赖，项目运行必需。devDependencies是开发依赖，仅构建时需要。scripts定义命令脚本，peerDependencies声明对等依赖。"
+  },
+  {
+    "type": "single",
+    "category": "工程化",
+    "difficulty": "easy",
+    "question": "Git中，以下哪个命令用于创建新分支？",
+    "options": [
+      "git merge",
+      "git branch",
+      "git checkout",
+      "git clone"
+    ],
+    "correctAnswer": "git branch",
+    "explanation": "git branch 分支名创建新分支。git merge合并分支，git checkout切换分支，git clone克隆远程仓库。"
+  },
+  {
+    "type": "single",
+    "category": "工程化",
+    "difficulty": "medium",
+    "question": "关于Webpack，以下说法错误的是？",
+    "options": [
+      "loader用于转换文件",
+      "plugin用于执行更广泛的任务",
+      "entry是打包入口",
+      "output只能有一个出口文件"
+    ],
+    "correctAnswer": "output只能有一个出口文件",
+    "explanation": "Webpack支持多入口多出口配置，output可以配置多个输出文件。loader处理模块转换，plugin扩展构建流程的各种功能。"
+  },
+  {
+    "type": "single",
+    "category": "工程化",
+    "difficulty": "medium",
+    "question": "Vite相比Webpack的主要优势是？",
+    "options": [
+      "兼容性更好",
+      "开发环境启动极快，利用浏览器原生ES模块",
+      "打包产物更小",
+      "插件生态更丰富"
+    ],
+    "correctAnswer": "开发环境启动极快，利用浏览器原生ES模块",
+    "explanation": "Vite开发模式基于浏览器原生ESM，无需打包，冷启动和热更新都极快。生产环境用Rollup打包。Webpack生态更成熟，兼容性更好。"
+  },
+  {
+    "type": "single",
+    "category": "工程化",
+    "difficulty": "medium",
+    "question": "Babel的主要作用是什么？",
+    "options": [
+      "打包JavaScript文件",
+      "将高版本JS编译为低版本兼容代码",
+      "检查代码语法错误",
+      "压缩代码"
+    ],
+    "correctAnswer": "将高版本JS编译为低版本兼容代码",
+    "explanation": "Babel是JavaScript编译器，将ES6+等新语法转换为ES5等兼容代码，让新特性可以在旧浏览器运行。打包是Webpack等工具的职责。"
+  },
+  {
+    "type": "single",
+    "category": "工程化",
+    "difficulty": "medium",
+    "question": "以下哪个不是代码规范工具？",
+    "options": [
+      "ESLint",
+      "Prettier",
+      "Stylelint",
+      "Jest"
+    ],
+    "correctAnswer": "Jest",
+    "explanation": "Jest是JavaScript测试框架，用于单元测试。ESLint检查JS代码规范，Stylelint检查CSS规范，Prettier统一代码格式化风格。"
+  },
+  {
+    "type": "text",
+    "category": "工程化",
+    "difficulty": "hard",
+    "question": "请简述Webpack的Tree Shaking原理及前提条件。",
+    "options": [],
+    "correctAnswer": "Tree Shaking是消除未使用代码的优化，基于ES Module的静态结构分析，编译时确定依赖关系。前提：必须使用ES6模块语法、开启production模式、package.json设置sideEffects标记无副作用文件。",
+    "explanation": "CommonJS是动态的无法静态分析，所以Tree Shaking只支持ESM。sideEffects用于告知Webpack哪些文件有副作用，不能被摇掉。"
+  },
+  {
+    "type": "text",
+    "category": "工程化",
+    "difficulty": "hard",
+    "question": "前端性能优化有哪些常用手段？",
+    "options": [],
+    "correctAnswer": "加载优化：代码分割、懒加载、预加载、CDN、Gzip压缩、资源缓存。渲染优化：减少重排重绘、虚拟列表、防抖节流、SSR。构建优化：Tree Shaking、压缩代码、图片优化、按需引入。网络优化：HTTP2、域名收敛、减少请求数。",
+    "explanation": "性能优化需从加载、渲染、构建、网络多维度入手。核心是减少首屏资源体积和请求数，提升交互流畅度，用Lighthouse等工具量化评估。"
+  },
+  {
+    "type": "text",
+    "category": "工程化",
+    "difficulty": "hard",
+    "question": "请解释微前端的概念、适用场景及常见实现方案。",
+    "options": [],
+    "correctAnswer": "微前端将前端应用拆分为多个独立子应用，可独立开发部署，技术栈无关。适用大型复杂系统、多团队协作、遗留系统迁移。实现方案：qiankun（基于single-spa）、Webpack5 Module Federation、iframe、Web Components。",
+    "explanation": "微前端核心是解耦和自治，解决巨石应用维护困难问题。Module Federation是Webpack原生方案，qiankun封装度高更易用，各有优劣。"
+  }
+]
