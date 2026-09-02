@@ -9,6 +9,17 @@ Content-Type: application/json
 
 ###
 
+### 测试登录接口
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Test1234"
+}
+
+###
+
 ### 测试更新个人信息接口
 PUT http://localhost:5000/api/users/me
 Content-Type: application/json
@@ -49,3 +60,8 @@ Content-Type: application/pdf
 GET http://localhost:5000/api/users/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
 
+###
+
+### 测试获取问题列表接口
+GET http://localhost:5000/api/questions?category=JavaScript&difficulty=medium
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODgzMzkzNTcsImV4cCI6MTc4ODk0NDE1N30.zH_bUnNWg7IFYVnm8xv4aAqPY1xEHgz6V_7ERm0YTFw
