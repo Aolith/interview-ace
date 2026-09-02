@@ -9,6 +9,7 @@ import Profile from './pages/Profile'
 import Practice from './pages/Practice'
 import Navbar from './components/layout/Navbar'
 import Welcome from './pages/Welcome'
+import Questions from './pages/Questions'
 
 function App() {
   //获取当前用户信息
@@ -26,6 +27,7 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/practice" element={<ProtectedRoute><Practice /></ProtectedRoute>} />
         <Route path="/welcome" element={<Welcome />} />
+        <Route path="/questions" element={<ProtectedRoute><Questions /></ProtectedRoute>} />
       </Routes>
     </Router>
   )

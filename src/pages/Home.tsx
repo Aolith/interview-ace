@@ -39,7 +39,7 @@ const Home: React.FC = () => {
           {/* 快捷入口 */}
           <div className="grid grid-cols-2 gap-4">
             <Link
-              to="/practice"
+              to="/questions"
               className="bg-white rounded-xl shadow hover:shadow-2xl hover:-translate-y-1 p-6 transition duration-300 group"
             >
               <FileText className="text-blue-500 mb-2" />
