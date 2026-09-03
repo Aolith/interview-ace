@@ -65,3 +65,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 ### 测试获取问题列表接口
 GET http://localhost:5000/api/questions?category=JavaScript&difficulty=medium
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODgzMzkzNTcsImV4cCI6MTc4ODk0NDE1N30.zH_bUnNWg7IFYVnm8xv4aAqPY1xEHgz6V_7ERm0YTFw
+
+###
+
+###测试获取单个问题详情
+GET http://localhost:5000/api/questions/6a96932ec73a7b161b76c62e
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODg0MTY1MTUsImV4cCI6MTc4OTAyMTMxNX0.ZiR52uBK45HJccpFniQeBlWbHjwwJyjf_ooGJG-4ksA

@@ -1,6 +1,7 @@
 import React from "react"
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 const Questions: React.FC = () => {
   // 分类列表
   const categories = ["HTML/CSS", "JavaScript", "React", "Vue", "网络与浏览器", "工程化"]
@@ -52,11 +53,13 @@ const Questions: React.FC = () => {
           {/* 用 map 渲染题目卡片 */}
           {questions.map((q) => (
             <div key={q._id} className="bg-white rounded-lg shadow p-4 cursor-pointer">
-              <h3 className="font-medium text-gray-800">{q.question}</h3>
-              <div className="flex gap-2 mt-2">
-                <span className="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded">{q.category}</span>
-                <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">{q.difficulty}</span>
-              </div>
+              <Link to={`/questions/${q._id}`} className="block">
+                <h3 className="font-medium text-gray-800">{q.question}</h3>
+                <div className="flex gap-2 mt-2">
+                  <span className="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded">{q.category}</span>
+                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">{q.difficulty}</span>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
