@@ -52,12 +52,12 @@ const Questions: React.FC = () => {
           <h2 className="text-lg font-bold text-gray-800 mb-4">题目列表</h2>
           {/* 用 map 渲染题目卡片 */}
           {questions.map((q) => (
-            <div key={q._id} className="bg-white rounded-lg shadow p-4 cursor-pointer">
+            <div key={q._id} className="bg-white  border border-gray-100 p-4 cursor-pointer">
               <Link to={`/questions/${q._id}`} className="block">
                 <h3 className="font-medium text-gray-800">{q.question}</h3>
                 <div className="flex gap-2 mt-2">
-                  <span className="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded">{q.category}</span>
-                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">{q.difficulty}</span>
+                  <span className="text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded">{q.type === 'single' ? '选择题' : '简答题'}</span>
+                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">{q.difficulty === 'easy' ? '简单' : q.difficulty === 'medium' ? '中等' : '困难'}</span>
                 </div>
               </Link>
             </div>
