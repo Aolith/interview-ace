@@ -19,6 +19,37 @@ questionRoutes.get("/", authMiddleware, async (req: AuthRequest, res: express.Re
   }
 })
 
+//抽取题目
+questionRoutes.get("/practice", authMiddleware, async (req: AuthRequest, res: express.Response) => {
+  try {
+    const { category, difficulty, count } = req.query
+    const limit = Math.min(parseInt(count as string) || 10, 10)
+    const filter: any = {}
+    if (category) filter.category = category
+    if (difficulty) filter.difficulty = difficulty
+    const questions = await Question.aggregate([
+      { $match: filter },
+      { $sample: { size: limit } },
+      {
+        $project: {
+          correctAnswer: 0,
+          explanation: 0,
+          __v: 0,
+          createdAt: 0,
+          updatedAt: 0
+        }
+      }
+    ])
+    if (questions.length === 0) {
+      return res.status(404).json({ message: "没有符合条件的题目" })
+    }
+    res.json({ questions })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "抽取题目失败" })
+  }
+})
+
 // 获取单个问题的详细信息
 questionRoutes.get("/:id", authMiddleware, async (req: AuthRequest, res: express.Response) => {
   try {
@@ -32,5 +63,6 @@ questionRoutes.get("/:id", authMiddleware, async (req: AuthRequest, res: express
     res.status(500).json({ message: "获取问题详情失败" })
   }
 })
+
 
 export default questionRoutes

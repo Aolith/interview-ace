@@ -71,3 +71,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 ###测试获取单个问题详情
 GET http://localhost:5000/api/questions/6a96932ec73a7b161b76c62e
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODg0MTY1MTUsImV4cCI6MTc4OTAyMTMxNX0.ZiR52uBK45HJccpFniQeBlWbHjwwJyjf_ooGJG-4ksA
+
+###
+
+### 测试获取练习题目接口
+GET http://localhost:5000/api/questions/practice?count=1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODg0NDA1NTUsImV4cCI6MTc4OTA0NTM1NX0.9v7IpiozZ4E_lG-UsrBoR-XN1eK5JlIGxyKvpRr2tJM
