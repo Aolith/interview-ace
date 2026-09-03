@@ -4,6 +4,9 @@ import axios from 'axios'
 const Questions: React.FC = () => {
   // 分类列表
   const categories = ["HTML/CSS", "JavaScript", "React", "Vue", "网络与浏览器", "工程化"]
+  //默认选中一个分类
+  const [selectedCategory, setSelectedCategory] = useState<string>(categories[0])
+  const url = `/api/questions?category=${encodeURIComponent(selectedCategory)}`
   // 题目列表
   const [questions, setQuestions] = useState<any[]>([])
 
@@ -11,7 +14,7 @@ const Questions: React.FC = () => {
     const fetchQuestions = async () => {
       try {
         const token = localStorage.getItem('token')
-        const response = await axios.get('/api/questions', {
+        const response = await axios.get(url, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setQuestions(response.data.questions)
@@ -21,7 +24,7 @@ const Questions: React.FC = () => {
     }
 
     fetchQuestions()
-  }, [])
+  }, [selectedCategory])
 
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-b from-sky-100 via-white to-violet-100">
@@ -33,7 +36,9 @@ const Questions: React.FC = () => {
             {categories.map((cat) => (
               <button
                 key={cat}
-                className="text-left px-3 py-2 rounded hover:bg-indigo-50 hover:text-indigo-600 transition"
+                className={`text-left px-3 py-2 rounded transition ${selectedCategory === cat ? 'bg-indigo-500 text-white' : 'hover:bg-indigo-50 hover:text-indigo-600'
+                  }`}
+                onClick={() => setSelectedCategory(cat)}
               >
                 {cat}
               </button>
