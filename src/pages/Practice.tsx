@@ -12,7 +12,7 @@ const Practice: React.FC = () => {
         </Link>
 
         {/* 基础练习 */}
-        <Link to="/basic" className="bg-white rounded-xl shadow hover:shadow-2xl hover:-translate-y-1 p-8 flex flex-col items-center justify-center min-h-[210px] transition duration-300 group">
+        <Link to="/practice-quiz" className="bg-white rounded-xl shadow hover:shadow-2xl hover:-translate-y-1 p-8 flex flex-col items-center justify-center min-h-[210px] transition duration-300 group">
           <h2 className="text-2xl font-bold text-gray-800 mb-3">基础练习</h2>
           <p className="text-gray-500 mb-6 text-center">海量真题，巩固基础</p>
         </Link>

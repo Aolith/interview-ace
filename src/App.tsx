@@ -11,6 +11,7 @@ import Navbar from './components/layout/Navbar'
 import Welcome from './pages/Welcome'
 import Questions from './pages/Questions'
 import QuestionDetail from './pages/Questiondetal'
+import PracticeQuiz from './pages/PracticeQuiz'
 
 function App() {
   //获取当前用户信息
@@ -30,6 +31,7 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/questions" element={<ProtectedRoute><Questions /></ProtectedRoute>} />
         <Route path="/questions/:id" element={<ProtectedRoute><QuestionDetail /></ProtectedRoute>} />
+        <Route path="/practice-quiz" element={<ProtectedRoute><PracticeQuiz /></ProtectedRoute>} />
       </Routes>
     </Router>
   )

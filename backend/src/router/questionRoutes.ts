@@ -23,11 +23,12 @@ questionRoutes.get("/", authMiddleware, async (req: AuthRequest, res: express.Re
 //抽取题目
 questionRoutes.get("/practice", authMiddleware, async (req: AuthRequest, res: express.Response) => {
   try {
-    const { category, difficulty, count } = req.query
+    const { category, difficulty, count, type } = req.query
     const limit = Math.min(parseInt(count as string) || 10, 10)
     const filter: any = {}
     if (category) filter.category = category
     if (difficulty) filter.difficulty = difficulty
+    if (type) filter.type = type
     const questions = await Question.aggregate([
       { $match: filter },
       { $sample: { size: limit } },
