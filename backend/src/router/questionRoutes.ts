@@ -1,6 +1,7 @@
 import express from "express"
 import authMiddleware, { AuthRequest } from "../middlewares/auth"
 import Question from "../models/Question"
+import AnswerRecord from "../models/AnswerRecord"
 
 const questionRoutes = express.Router()
 
@@ -64,5 +65,31 @@ questionRoutes.get("/:id", authMiddleware, async (req: AuthRequest, res: express
   }
 })
 
+//提交答案接口
+questionRoutes.post("/:id/answer", authMiddleware, async (req: AuthRequest, res: express.Response) => {
+  try {
+    const { answer } = req.body
+    const question = await Question.findById(req.params.id)
+    if (!question) {
+      return res.status(404).json({ message: "问题未找到" })
+    }
+    const isCorrect = question.correctAnswer.trim() === answer.trim()
+    const answerRecord = await AnswerRecord.findOneAndUpdate(
+      {
+        userId: req.user._id,
+        questionId: question._id
+      },
+      {
+        userAnswer: answer,
+        isCorrect
+      },
+      { upsert: true, returnDocument: "after" }
+    )
+    res.json({ isCorrect, correctAnswer: question.correctAnswer, explanation: question.explanation })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "提交答案失败" })
+  }
+})
 
 export default questionRoutes

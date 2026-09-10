@@ -64,7 +64,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 
 ### 测试获取问题列表接口
 GET http://localhost:5000/api/questions?category=JavaScript&difficulty=medium
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODgzMzkzNTcsImV4cCI6MTc4ODk0NDE1N30.zH_bUnNWg7IFYVnm8xv4aAqPY1xEHgz6V_7ERm0YTFw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODkwMDU3NzQsImV4cCI6MTc4OTYxMDU3NH0._lAMzpUq61tatWOtSDR21K7DE43X1MGyGgPa6Auok0o
 
 ###
 
@@ -77,3 +77,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 ### 测试获取练习题目接口
 GET http://localhost:5000/api/questions/practice?count=1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODg0NDA1NTUsImV4cCI6MTc4OTA0NTM1NX0.9v7IpiozZ4E_lG-UsrBoR-XN1eK5JlIGxyKvpRr2tJM
+
+###
+
+### 测试提交答案接口
+POST http://localhost:5000/api/questions/6a96932ec73a7b161b76c63b/answer
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODkwMDU3NzQsImV4cCI6MTc4OTYxMDU3NH0._lAMzpUq61tatWOtSDR21K7DE43X1MGyGgPa6Auok0o
+
+{
+  "answer": "闭包是指函数可以访问其外部作用域的变量"
+}
+
+###

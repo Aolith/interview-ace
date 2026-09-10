@@ -6,7 +6,6 @@ export interface IAnswerRecord extends Document {
   userAnswer: string
   isCorrect: boolean
   isFavorite: boolean
-  isWrong: boolean
 }
 
 const AnswerRecordSchema: Schema = new Schema(
@@ -30,10 +29,6 @@ const AnswerRecordSchema: Schema = new Schema(
       required: true
     },
     isFavorite: {
-      type: Boolean,
-      default: false
-    },
-    isWrong: {
       type: Boolean,
       default: false
     }
