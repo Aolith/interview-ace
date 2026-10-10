@@ -90,3 +90,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 }
 
 ###
+
+### 1. 收藏一道题（第一次）
+POST http://localhost:5000/api/questions/6a96932ec73a7b161b76c63b/favorite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+# 期望：{ "isFavorite": true }
+
+### 2. 再点一次（取消收藏）
+POST http://localhost:5000/api/questions/6a96932ec73a7b161b76c63b/favorite
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+# 期望：{ "isFavorite": false }
+
+### 3. 查收藏列表
+GET http://localhost:5000/api/questions/favorites
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+# 期望：{ "questions": [...], "count": N }
