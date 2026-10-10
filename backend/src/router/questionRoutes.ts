@@ -2,6 +2,7 @@ import express from "express"
 import authMiddleware, { AuthRequest } from "../middlewares/auth"
 import Question from "../models/Question"
 import AnswerRecord from "../models/AnswerRecord"
+import Favorite from "../models/Favorite"
 
 const questionRoutes = express.Router()
 
@@ -52,6 +53,20 @@ questionRoutes.get("/practice", authMiddleware, async (req: AuthRequest, res: ex
   }
 })
 
+//获取收藏
+questionRoutes.get("/favorites", authMiddleware, async (req: AuthRequest, res: express.Response) => {
+  try {
+    const favorites = await Favorite.find({
+      userId: req.user!._id
+    }).populate("questionId")
+    const questions = favorites.map((f) => f.questionId).filter(Boolean)
+    res.json({ questions, count: questions.length })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "获取收藏列表失败" })
+  }
+})
+
 // 获取单个问题的详细信息
 questionRoutes.get("/:id", authMiddleware, async (req: AuthRequest, res: express.Response) => {
   try {
@@ -90,6 +105,32 @@ questionRoutes.post("/:id/answer", authMiddleware, async (req: AuthRequest, res:
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: "提交答案失败" })
+  }
+})
+
+//收藏题目接口
+questionRoutes.post("/:id/favorite", authMiddleware, async (req: AuthRequest, res: express.Response) => {
+  try {
+    const existing = await Favorite.findOne({
+      userId: req.user!._id,
+      questionId: req.params.id
+    })
+
+    if (existing) {
+      // 已收藏 → 取消收藏
+      await Favorite.deleteOne({ _id: existing._id })
+      return res.json({ isFavorite: false })
+    }
+    // 未收藏 → 添加收藏
+    const favorite = new Favorite({
+      userId: req.user!._id,
+      questionId: req.params.id
+    })
+    await favorite.save()
+    res.json({ isFavorite: true })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "收藏题目失败" })
   }
 })
 
