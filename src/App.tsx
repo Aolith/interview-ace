@@ -12,6 +12,7 @@ import Welcome from './pages/Welcome'
 import Questions from './pages/Questions'
 import QuestionDetail from './pages/Questiondetal'
 import PracticeQuiz from './pages/PracticeQuiz'
+import Favorites from './pages/Favorites'
 
 function App() {
   //获取当前用户信息
@@ -32,6 +33,7 @@ function App() {
         <Route path="/questions" element={<ProtectedRoute><Questions /></ProtectedRoute>} />
         <Route path="/questions/:id" element={<ProtectedRoute><QuestionDetail /></ProtectedRoute>} />
         <Route path="/practice-quiz" element={<ProtectedRoute><PracticeQuiz /></ProtectedRoute>} />
+        <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
       </Routes>
     </Router>
   )
