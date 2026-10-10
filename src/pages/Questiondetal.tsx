@@ -1,26 +1,49 @@
-import React from "react"
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+
 const QuestionDetail: React.FC = () => {
   const [question, setQuestion] = useState<any>(null)
+  const [isFavorite, setIsFavorite] = useState(false)
   const { id } = useParams()
 
   useEffect(() => {
-    const fetchQuestion = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem('token')
-        const response = await axios.get(`/api/questions/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-        setQuestion(response.data.question)
+        const headers = { Authorization: `Bearer ${token}` }
+
+        // 并行请求：题目详情 + 收藏列表
+        const [questionRes, favoritesRes] = await Promise.all([
+          axios.get(`/api/questions/${id}`, { headers }),
+          axios.get('/api/questions/favorites', { headers })
+        ])
+
+        setQuestion(questionRes.data.question)
+
+        // 判断当前题是否在收藏列表里
+        const favoriteIds = favoritesRes.data.questions.map((q: any) => q._id)
+        setIsFavorite(favoriteIds.includes(id))
       } catch (error) {
         console.error('Error fetching question:', error)
       }
     }
-
-    fetchQuestion()
+    fetchData()
   }, [id])
+
+  const handleFavorite = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      const res = await axios.post(
+        `/api/questions/${id}/favorite`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      setIsFavorite(res.data.isFavorite)
+    } catch (error: any) {
+      alert(error.response?.data?.message || '操作失败')
+    }
+  }
 
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-b from-sky-100 via-white to-violet-100">
@@ -38,9 +61,17 @@ const QuestionDetail: React.FC = () => {
                 }`}>
                 {question.difficulty === 'easy' ? '简单' : question.difficulty === 'medium' ? '中等' : '困难'}
               </span>
-              <span className="ml-auto text-xs text-gray-500">
-                {question.type === 'single' ? '选择题' : '简答题'}
-              </span>
+
+              {/* 收藏按钮 */}
+              <button
+                onClick={handleFavorite}
+                className={`ml-auto flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition ${isFavorite
+                    ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                    : 'bg-white text-gray-500 hover:bg-gray-100'
+                  }`}
+              >
+                {isFavorite ? '★ 已收藏' : '☆ 收藏'}
+              </button>
             </div>
 
             {/* 题目内容 */}
@@ -49,7 +80,6 @@ const QuestionDetail: React.FC = () => {
                 {question.question}
               </h2>
 
-              {/* 选项列表 */}
               {question.type === 'single' && (
                 <div className="space-y-3 mb-6">
                   {question.options.map((option: string, index: number) => (
@@ -57,7 +87,7 @@ const QuestionDetail: React.FC = () => {
                       key={index}
                       className={`p-4 rounded-lg border transition ${option === question.correctAnswer
                           ? 'bg-green-50 border-green-300'
-                          : 'bg-white border-gray-200 hover:border-indigo-300'
+                          : 'bg-white border-gray-200'
                         }`}
                     >
                       <span className="font-medium text-gray-500 mr-2">
@@ -74,7 +104,6 @@ const QuestionDetail: React.FC = () => {
                 </div>
               )}
 
-              {/* 正确答案 */}
               <div className="mb-4">
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">正确答案</h3>
                 <div className="bg-green-50 rounded-lg p-4 text-green-800 font-medium">
@@ -82,7 +111,6 @@ const QuestionDetail: React.FC = () => {
                 </div>
               </div>
 
-              {/* 解析 */}
               <div>
                 <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">解析</h3>
                 <div className="bg-gray-50 rounded-lg p-4 text-gray-700 leading-relaxed">

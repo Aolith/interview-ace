@@ -25,16 +25,27 @@ const Practice: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [correctCount, setCorrectCount] = useState(0)
 
-  // 开始练习：抽题
+  // 收藏状态
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([])
+
+  // 开始练习：抽题 + 拉收藏列表
   const handleStart = async () => {
     try {
       setLoading(true)
       const token = localStorage.getItem('token')
-      const res = await axios.get(
-        `/api/questions/practice?category=${encodeURIComponent(category)}&difficulty=${difficulty}&count=${count}&type=${questionType}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      setQuestions(res.data.questions)
+      const headers = { Authorization: `Bearer ${token}` }
+
+      // 并行请求：抽题 + 拉收藏列表
+      const [practiceRes, favoritesRes] = await Promise.all([
+        axios.get(
+          `/api/questions/practice?category=${encodeURIComponent(category)}&difficulty=${difficulty}&count=${count}&type=${questionType}`,
+          { headers }
+        ),
+        axios.get('/api/questions/favorites', { headers })
+      ])
+
+      setQuestions(practiceRes.data.questions)
+      setFavoriteIds(favoritesRes.data.questions.map((q: any) => q._id))
       setCurrentIndex(0)
       setSelectedAnswer('')
       setResult(null)
@@ -82,6 +93,26 @@ const Practice: React.FC = () => {
     setSelectedAnswer('')
     setResult(null)
     setCorrectCount(0)
+    setFavoriteIds([])   // 清空收藏状态
+  }
+
+  // 收藏/取消收藏
+  const handleFavorite = async (questionId: string) => {
+    try {
+      const token = localStorage.getItem('token')
+      const res = await axios.post(
+        `/api/questions/${questionId}/favorite`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      if (res.data.isFavorite) {
+        setFavoriteIds((prev) => [...prev, questionId])
+      } else {
+        setFavoriteIds((prev) => prev.filter((id) => id !== questionId))
+      }
+    } catch (error: any) {
+      alert(error.response?.data?.message || '操作失败')
+    }
   }
 
   // ============ 配置界面 ============
@@ -204,6 +235,8 @@ const Practice: React.FC = () => {
 
   // ============ 答题界面 ============
   const currentQuestion = questions[currentIndex]
+  // 判断当前题目是否已收藏
+  const isCurrentFavorite = favoriteIds.includes(currentQuestion._id)
 
   return (
     <div className="min-h-screen pt-16 bg-gradient-to-b from-sky-100 via-white to-violet-100 flex items-start justify-center">
@@ -221,6 +254,16 @@ const Practice: React.FC = () => {
               <span className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
                 {currentQuestion.type === 'single' ? '选择题' : '简答题'}
               </span>
+              {/* 新增：收藏按钮 */}
+              <button
+                onClick={() => handleFavorite(currentQuestion._id)}
+                className={`text-xs px-3 py-1 rounded-full font-medium transition ${isCurrentFavorite
+                    ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                    : 'bg-white text-gray-500 border border-gray-200 hover:bg-gray-50'
+                  }`}
+              >
+                {isCurrentFavorite ? '★ 已收藏' : '☆ 收藏'}
+              </button>
             </div>
           </div>
 
