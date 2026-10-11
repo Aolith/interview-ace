@@ -67,6 +67,30 @@ questionRoutes.get("/favorites", authMiddleware, async (req: AuthRequest, res: e
   }
 })
 
+//获取用户的错题
+questionRoutes.get("/wrong", authMiddleware, async (req: AuthRequest, res: express.Response) => {
+  try {
+    const { type } = req.query
+    const wrongAnswers = await AnswerRecord.find({
+      userId: req.user!._id,
+      isCorrect: false
+    }).populate("questionId")
+
+    const questions = wrongAnswers
+      .filter((wa) => wa.questionId)
+      .filter((wa: any) => !type || wa.questionId.type === type)
+      .map((wa) => ({
+        question: wa.questionId,
+        userAnswer: wa.userAnswer
+      }))
+
+    res.json({ questions, count: questions.length })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "获取错题列表失败" })
+  }
+})
+
 // 获取单个问题的详细信息
 questionRoutes.get("/:id", authMiddleware, async (req: AuthRequest, res: express.Response) => {
   try {

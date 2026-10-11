@@ -105,3 +105,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 GET http://localhost:5000/api/questions/favorites
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
 # 期望：{ "questions": [...], "count": N }
+
+### 测试获取错题列表接口
+GET http://localhost:5000/api/questions/wrong
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTk1MjA0MGJhM2FjOGRiZmRmYTJjNDgiLCJpYXQiOjE3OTE3MjgzMDIsImV4cCI6MTc5MjMzMzEwMn0.8-PZVmYlhbjco6VIcheF2EuLafn1jbEdupkujaIzn0M
+
+### 测试获取错题列表接口1
+GET http://localhost:5000/api/questions/wrong?type=single
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+
+#### 测试获取错题列表接口2
+GET http://localhost:5000/api/questions/wrong?type=text
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
