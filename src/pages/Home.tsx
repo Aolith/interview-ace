@@ -50,7 +50,7 @@ const Home: React.FC = () => {
             </Link>
 
             <Link
-              to="/progress"
+              to="/review"
               className="bg-white rounded-xl shadow hover:shadow-2xl hover:-translate-y-1 p-6 transition duration-300 group"
             >
               <TrendingUp className="text-blue-500 mb-2" />

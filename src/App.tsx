@@ -13,6 +13,8 @@ import Questions from './pages/Questions'
 import QuestionDetail from './pages/Questiondetal'
 import PracticeQuiz from './pages/PracticeQuiz'
 import Favorites from './pages/Favorites'
+import Review from './pages/Review'
+import WrongQuiz from './pages/WrongQuiz'
 
 function App() {
   //获取当前用户信息
@@ -34,6 +36,8 @@ function App() {
         <Route path="/questions/:id" element={<ProtectedRoute><QuestionDetail /></ProtectedRoute>} />
         <Route path="/practice-quiz" element={<ProtectedRoute><PracticeQuiz /></ProtectedRoute>} />
         <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
+        <Route path="/review" element={<ProtectedRoute><Review /></ProtectedRoute>} />
+        <Route path="/review/quiz" element={<ProtectedRoute><WrongQuiz /></ProtectedRoute>} />
       </Routes>
     </Router>
   )
