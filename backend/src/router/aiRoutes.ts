@@ -1,5 +1,8 @@
 import Express from "express"
 import OpenAI from "openai"
+import Resume from '../models/Resume'
+import { analyzeResume } from '../services/aiService'
+import authMiddleware, { AuthRequest } from "../middlewares/auth"
 
 const aiRoutes = Express.Router()
 const client = new OpenAI({
@@ -19,6 +22,36 @@ aiRoutes.get('/test', async (req, res) => {
   catch (error) {
     console.error('AI接口连通失败:', error)
     res.status(500).json({ message: 'AI接口连通失败', error })
+  }
+})
+
+aiRoutes.post('/analyze-resume', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    // 1. 查当前用户的简历
+    const resume = await Resume.findOne({ userId: req.user!._id })
+    if (!resume) {
+      return res.status(404).json({ message: '请先上传简历' })
+    }
+    if (!resume.rawText) {
+      return res.status(400).json({ message: '简历内容为空' })
+    }
+    // 2. 已有分析结果 → 直接返回
+    if (resume.analysis && resume.analysis.skills?.length > 0) {
+      return res.json({ analysis: resume.analysis, cached: true })
+    }
+
+    // 3. 调 AI 分析
+    const analysis = await analyzeResume(resume.rawText)
+
+    // 4. 存回数据库
+    resume.analysis = analysis
+    await resume.save()
+
+    // 5. 返回
+    res.json({ analysis, cached: false })
+  } catch (error) {
+    console.error('简历分析失败:', error)
+    res.status(500).json({ message: '简历分析失败' })
   }
 })
 

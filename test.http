@@ -114,6 +114,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTk1M
 GET http://localhost:5000/api/questions/wrong?type=single
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
 
-#### 测试获取错题列表接口2
+### 测试获取错题列表接口2
 GET http://localhost:5000/api/questions/wrong?type=text
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+
+### 测试简历分析接口
+POST http://localhost:5000/api/ai/analyze-resume
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE4MTQ4MDQsImV4cCI6MTc5MjQxOTYwNH0.M6AL447L7stGpTyUu6_McKGAijFK4YwjedKjBJx2enE
