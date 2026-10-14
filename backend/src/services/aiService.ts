@@ -1,4 +1,3 @@
-//简历分析
 import OpenAI from "openai"
 
 const client = new OpenAI({
@@ -6,6 +5,7 @@ const client = new OpenAI({
   baseURL: process.env.DEEPSEEK_BASE_URL
 })
 
+//简历分析
 export const analyzeResume = async (rawText: string) => {
   try {
     // 调AI，返回分析结果
@@ -58,5 +58,63 @@ export const analyzeResume = async (rawText: string) => {
   } catch (error) {
     console.error('简历分析失败:', error)
     throw new Error('简历分析失败')
+  }
+}
+
+//AI生成面试题
+export const generateQuestions = async (resumeAnalysis: any, numQuestions: number) => {
+  try {
+    const response = await client.chat.completions.create({
+      model: "deepseek-chat",
+      messages: [
+        {
+          role: "system",
+          content: `**角色设定：**
+你是一位资深技术面试官，擅长根据候选人的简历背景设计有针对性的面试题。
+
+**出题依据：**
+- 根据 skills 列表，为主要技术方向出对应题目
+- 根据 projects 项目经历，出相关的场景题（例如候选人做过 JWT 鉴权，就问鉴权方案设计）
+- 根据 yearsOfExperience 调整难度：在校生/应届生问基础题，有工作经验的人问进阶或架构题
+- 如果技能栈数量多于题目数量，优先选择候选人简历中出现的、最核心的技术
+
+**出题数量：**
+生成 ${numQuestions} 道面试题。
+
+**题目类型：**
+- 单选题：type 为 "single"，需要 4 个选项
+- 简答题：type 为 "text"，无需选项
+不要生成编程题。
+
+**输出格式（严格 JSON 数组）：**
+[
+  {
+    "question": "题目内容",
+    "type": "single 或 text",
+    "category": "技术分类，必须是 skills 列表中的具体技术名",
+    "difficulty": "easy 或 medium 或 hard",
+    "keyPoints": ["考察点1", "考察点2"],
+    "referenceAnswer": "参考答案要点"
+  }
+]
+
+**注意事项：**
+- 只输出 JSON 数组，不要输出任何其他文本、解释或代码块标记
+- 不要生成 userAnswer、aiScore、aiFeedback 字段，这些是后续流程填充的
+- 每道题的 keyPoints 至少 2 个，帮助后续评估用户回答
+- 题目要真实、常见、有考察价值，不要偏题怪题`
+        },
+        { role: "user", content: JSON.stringify(resumeAnalysis) }
+      ]
+    })
+    const content = response.choices[0].message.content || ''
+    const start = content.indexOf('[')
+    const end = content.lastIndexOf(']') + 1
+    const questionsString = content.substring(start, end)
+    const questions = JSON.parse(questionsString)
+    return questions
+  } catch (error) {
+    console.error('面试题生成失败:', error)
+    throw new Error('面试题生成失败')
   }
 }

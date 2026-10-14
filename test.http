@@ -23,8 +23,7 @@ Content-Type: application/json
 ### 测试更新个人信息接口
 PUT http://localhost:5000/api/users/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
-
+Authorization: Bearer 
 {
   "username":"11"
 }
@@ -34,7 +33,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 ### 测试更新个人信息接口
 PUT http://localhost:5000/api/users/me
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
+Authorization: Bearer 
 
 {
   "username":"11"
@@ -44,7 +43,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 
 ### 测试上传简历接口
 POST http://localhost:5000/api/upload/resume
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
+Authorization: Bearer 
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -58,33 +57,31 @@ Content-Type: application/pdf
 
 ### 测试获取用户信息接口
 GET http://localhost:5000/api/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODI1MjYxODgsImV4cCI6MTc4MzEzMDk4OH0.-HREkoItYY9AtzmjOGsxM8MGvn8ByIZsiVs5BKXPWng
+Authorization: Bearer 
 
 ###
 
 ### 测试获取问题列表接口
 GET http://localhost:5000/api/questions?category=JavaScript&difficulty=medium
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODkwMDU3NzQsImV4cCI6MTc4OTYxMDU3NH0._lAMzpUq61tatWOtSDR21K7DE43X1MGyGgPa6Auok0o
+Authorization: Bearer 
 
 ###
 
 ###测试获取单个问题详情
 GET http://localhost:5000/api/questions/6a96932ec73a7b161b76c62e
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODg0MTY1MTUsImV4cCI6MTc4OTAyMTMxNX0.ZiR52uBK45HJccpFniQeBlWbHjwwJyjf_ooGJG-4ksA
+Authorization: Bearer
 
 ###
 
 ### 测试获取练习题目接口
 GET http://localhost:5000/api/questions/practice?count=1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODg0NDA1NTUsImV4cCI6MTc4OTA0NTM1NX0.9v7IpiozZ4E_lG-UsrBoR-XN1eK5JlIGxyKvpRr2tJM
-
+Authorization: Bearer 
 ###
 
 ### 测试提交答案接口
 POST http://localhost:5000/api/questions/6a96932ec73a7b161b76c63b/answer
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3ODkwMDU3NzQsImV4cCI6MTc4OTYxMDU3NH0._lAMzpUq61tatWOtSDR21K7DE43X1MGyGgPa6Auok0o
-
+Authorization: Bearer 
 {
   "answer": "闭包是指函数可以访问其外部作用域的变量"
 }
@@ -93,32 +90,39 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkM
 
 ### 1. 收藏一道题（第一次）
 POST http://localhost:5000/api/questions/6a96932ec73a7b161b76c63b/favorite
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+Authorization: Bearer 
 # 期望：{ "isFavorite": true }
 
 ### 2. 再点一次（取消收藏）
 POST http://localhost:5000/api/questions/6a96932ec73a7b161b76c63b/favorite
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+Authorization: Bearer 
 # 期望：{ "isFavorite": false }
 
 ### 3. 查收藏列表
 GET http://localhost:5000/api/questions/favorites
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
-# 期望：{ "questions": [...], "count": N }
+Authorization: Bearer 
 
 ### 测试获取错题列表接口
 GET http://localhost:5000/api/questions/wrong
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTk1MjA0MGJhM2FjOGRiZmRmYTJjNDgiLCJpYXQiOjE3OTE3MjgzMDIsImV4cCI6MTc5MjMzMzEwMn0.8-PZVmYlhbjco6VIcheF2EuLafn1jbEdupkujaIzn0M
-
+Authorization: Bearer 
 ### 测试获取错题列表接口1
 GET http://localhost:5000/api/questions/wrong?type=single
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+Authorization: Bearer 
 
 ### 测试获取错题列表接口2
 GET http://localhost:5000/api/questions/wrong?type=text
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE2MzE0MDMsImV4cCI6MTc5MjIzNjIwM30.TMp71auFPMu1BUPUuIAUyG9CtFXPZTIPd4yXpscqycA
+Authorization: Bearer
 
 ### 测试简历分析接口
 POST http://localhost:5000/api/ai/analyze-resume
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTJkMTczOTMzMjA3NjljZjgxNzNmZGIiLCJpYXQiOjE3OTE4MTQ4MDQsImV4cCI6MTc5MjQxOTYwNH0.M6AL447L7stGpTyUu6_McKGAijFK4YwjedKjBJx2enE
+Authorization: Bearer 
+
+###测试生成面试题接口
+POST http://localhost:5000/api/ai/generate-questions
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+  "numQuestions": 5
+}

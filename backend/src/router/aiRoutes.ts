@@ -1,7 +1,8 @@
 import Express from "express"
 import OpenAI from "openai"
 import Resume from '../models/Resume'
-import { analyzeResume } from '../services/aiService'
+import InterviewSession from "../models/InterviewSession"
+import { analyzeResume, generateQuestions } from '../services/aiService'
 import authMiddleware, { AuthRequest } from "../middlewares/auth"
 
 const aiRoutes = Express.Router()
@@ -52,6 +53,33 @@ aiRoutes.post('/analyze-resume', authMiddleware, async (req: AuthRequest, res) =
   } catch (error) {
     console.error('简历分析失败:', error)
     res.status(500).json({ message: '简历分析失败' })
+  }
+})
+
+aiRoutes.post('/generate-questions', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const numQuestions = req.body.numQuestions || 5
+    const resume = await Resume.findOne({ userId: req.user!._id })
+    if (!resume?.analysis) {
+      return res.status(400).json({ message: '请先分析简历' })
+    }
+
+    // 1. 先生成题目
+    const questions = await generateQuestions(resume.analysis, numQuestions)
+
+    // 2. 生成成功后再创建 session
+    const interviewSession = new InterviewSession({
+      userId: req.user!._id,
+      resumeAnalysis: resume.analysis,
+      questions
+    })
+    await interviewSession.save()
+
+    // 3. 返回题目和 sessionId
+    res.json({ sessionId: interviewSession._id, questions })
+  } catch (error) {
+    console.error('生成面试题失败:', error)
+    res.status(500).json({ message: '生成面试题失败' })
   }
 })
 
