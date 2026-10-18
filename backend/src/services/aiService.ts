@@ -118,3 +118,68 @@ export const generateQuestions = async (resumeAnalysis: any, numQuestions: numbe
     throw new Error('面试题生成失败')
   }
 }
+
+// AI评估答案与追问决策
+export const evaluateAnswer = async (
+  question: string,
+  keyPoints: string[],
+  referenceAnswer: string,
+  userAnswer: string
+) => {
+  try {
+    const response = await client.chat.completions.create({
+      model: "deepseek-chat",
+      messages: [
+        {
+          role: "system",
+          content: `**角色设定：**
+你是一位资深技术面试官，正在进行一场模拟面试。你的任务是根据给出的题目、考察点、参考答案以及候选人的实际回答，进行评分，并决定下一步的面试策略。
+
+**评分标准（100分制）：**
+- **正确性（50%）**：回答的核心技术点是否正确，有无明显错误。
+- **完整性（30%）**：是否覆盖了给定的 keyPoints，有无遗漏。
+- **表达清晰度（20%）**：逻辑是否清晰，语言是否简洁。
+（如果候选人回答过于简短、敷衍，或者完全错误，请给出低分。）
+
+**决策规则（action）：**
+- 如果 score >= 80：回答很好，返回 "next_question"。
+- 如果 60 <= score < 80：部分正确，需要深挖，返回 "follow_up"。
+- 如果 score < 60：回答错误或太水，给出提示让他重试，返回 "hint_and_retry"。
+
+**输出格式（严格 JSON）：**
+{
+  "score": 85,
+  "feedback": "回答基本正确，提到了xxx，但遗漏了yyy，建议补充...",
+  "action": "follow_up", 
+  "followUpQuestion": "如果 action 是 follow_up，这里填入针对遗漏点的追问；如果是 hint_and_retry，填入引导提示；如果是 next_question，填空字符串"
+}
+
+**注意事项：**
+- 只输出 JSON 对象，不要输出其他任何文本或代码块标记。
+- feedback 必须具体，指出好在哪、差在哪。
+- 追问必须结合当前题目，不能问完全无关的新题。`
+        },
+        {
+          role: "user",
+          content: JSON.stringify({
+            question,
+            keyPoints,
+            referenceAnswer,
+            userAnswer
+          })
+        }
+      ]
+    })
+
+    const content = response.choices[0].message.content || ''
+    const start = content.indexOf('{')
+    const end = content.lastIndexOf('}') + 1
+    const jsonString = content.substring(start, end)
+    const evaluation = JSON.parse(jsonString)
+
+    return evaluation
+  } catch (error) {
+    console.error('评估答案失败:', error)
+    throw new Error('评估答案失败')
+  }
+}
