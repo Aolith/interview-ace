@@ -82,15 +82,13 @@ export const generateQuestions = async (resumeAnalysis: any, numQuestions: numbe
 生成 ${numQuestions} 道面试题。
 
 **题目类型：**
-- 单选题：type 为 "single"，需要 4 个选项
-- 简答题：type 为 "text"，无需选项
-不要生成编程题。
+- 所有题目一律为简答题，type 必须为 "text"，不需要选项。不要生成单选题或编程题。
 
 **输出格式（严格 JSON 数组）：**
 [
   {
     "question": "题目内容",
-    "type": "single 或 text",
+    "type": "text",
     "category": "技术分类，必须是 skills 列表中的具体技术名",
     "difficulty": "easy 或 medium 或 hard",
     "keyPoints": ["考察点1", "考察点2"],
