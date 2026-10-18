@@ -2,7 +2,7 @@ import Express from "express"
 import OpenAI from "openai"
 import Resume from '../models/Resume'
 import InterviewSession from "../models/InterviewSession"
-import { analyzeResume, generateQuestions } from '../services/aiService'
+import { analyzeResume, generateQuestions, evaluateAnswer } from '../services/aiService'
 import authMiddleware, { AuthRequest } from "../middlewares/auth"
 
 const aiRoutes = Express.Router()
@@ -26,6 +26,7 @@ aiRoutes.get('/test', async (req, res) => {
   }
 })
 
+//ai分析
 aiRoutes.post('/analyze-resume', authMiddleware, async (req: AuthRequest, res) => {
   try {
     // 1. 查当前用户的简历
@@ -56,6 +57,7 @@ aiRoutes.post('/analyze-resume', authMiddleware, async (req: AuthRequest, res) =
   }
 })
 
+//ai出题
 aiRoutes.post('/generate-questions', authMiddleware, async (req: AuthRequest, res) => {
   try {
     const numQuestions = req.body.numQuestions || 5
@@ -80,6 +82,60 @@ aiRoutes.post('/generate-questions', authMiddleware, async (req: AuthRequest, re
   } catch (error) {
     console.error('生成面试题失败:', error)
     res.status(500).json({ message: '生成面试题失败' })
+  }
+})
+
+//ai评估
+aiRoutes.post('/evaluate-answer', authMiddleware, async (req: AuthRequest, res) => {
+  try {
+    const { sessionId, questionIndex, userAnswer } = req.body
+
+    // 1. 参数校验
+    if (!sessionId || questionIndex === undefined || !userAnswer) {
+      return res.status(400).json({ message: '缺少必要参数 (sessionId, questionIndex, userAnswer)' })
+    }
+
+    // 2. 查出对应的面试 Session
+    const session = await InterviewSession.findById(sessionId)
+    if (!session) {
+      return res.status(404).json({ message: '面试会话不存在' })
+    }
+
+    // 确保是当前用户自己的会话
+    if (session.userId.toString() !== req.user!._id.toString()) {
+      return res.status(403).json({ message: '无权访问此面试会话' })
+    }
+
+    // 3. 获取对应的题目信息
+    const currentQuestion = session.questions[questionIndex]
+    if (!currentQuestion) {
+      return res.status(400).json({ message: '题目索引越界' })
+    }
+
+    // 4. 调用 AI 进行评估
+    const evaluation = await evaluateAnswer(
+      currentQuestion.question,
+      currentQuestion.keyPoints,
+      currentQuestion.referenceAnswer,
+      userAnswer
+    )
+
+    // 5. 更新题目记录并保存到数据库
+    currentQuestion.userAnswer = userAnswer
+    currentQuestion.aiScore = evaluation.score
+    currentQuestion.aiFeedback = evaluation.feedback
+    await session.save() // Mongoose 会自动保存对嵌套数组内对象的修改
+
+    // 6. 返回评估结果（包含打分、反馈和下一步动作）
+    res.json({
+      score: evaluation.score,
+      feedback: evaluation.feedback,
+      action: evaluation.action, // next_question / follow_up / hint_and_retry
+      followUpQuestion: evaluation.followUpQuestion
+    })
+  } catch (error) {
+    console.error('评估答案失败:', error)
+    res.status(500).json({ message: '评估答案失败' })
   }
 })
 

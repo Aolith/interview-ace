@@ -124,5 +124,16 @@ Content-Type: application/json
 Authorization: Bearer 
 
 {
-  "numQuestions": 5
+  "numQuestions": 1
+}
+
+### 测试评估接口 - 优秀回答
+POST http://localhost:5000/api/ai/evaluate-answer
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "sessionId": "6ad4bd9deb2e13f5846e660d",
+  "questionIndex": 0,
+  "userAnswer": "我不知道，怎么这么难"
 }
