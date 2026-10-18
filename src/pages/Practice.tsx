@@ -5,10 +5,28 @@ const Practice: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-400 via-indigo-200 to-violet-200 p-4">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl w-full">
 
-        {/* AI 模拟面试 - 占满整行，视觉更突出 */}
-        <Link to="/interview" className="md:col-span-3 bg-white rounded-xl shadow p-8 flex flex-col items-center justify-center min-h-[260px] hover:shadow-2xl hover:-translate-y-1 transition ">
-          <h2 className="text-2xl font-bold text-gray-800 mb-3">AI 模拟面试</h2>
-          <p className="text-gray-500 mb-6 text-center">上传简历和 JD，体验真实面试场景</p>
+        {/* AI 模拟面试 */}
+        <Link
+          to="/ai-interview"
+          className="md:col-span-3 bg-white rounded-xl shadow hover:shadow-2xl hover:-translate-y-1 p-8 flex flex-col items-center justify-center min-h-[260px] transition duration-300 group relative overflow-hidden"
+        >
+          {/* 图标 */}
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-violet-100 to-indigo-100 flex items-center justify-center mb-5 group-hover:scale-110 transition duration-300">
+            {/* 这里用了一个 AI 星辰/魔法的 SVG 图标 */}
+            <svg className="w-8 h-8 text-violet-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+
+          <h2 className="text-2xl font-bold text-gray-800 mb-2 group-hover:text-violet-600 transition">AI 模拟面试</h2>
+          <p className="text-gray-500 text-center mb-5">基于你的简历，生成专属面试题并实时追问评估</p>
+
+          {/* 小标签 */}
+          <div className="flex gap-2">
+            <span className="text-xs bg-violet-50 text-violet-600 px-3 py-1.5 rounded-md font-medium">智能出题</span>
+            <span className="text-xs bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-md font-medium">实时追问</span>
+            <span className="text-xs bg-blue-50 text-blue-600 px-3 py-1.5 rounded-md font-medium">多维评估</span>
+          </div>
         </Link>
 
         {/* 基础练习 */}
