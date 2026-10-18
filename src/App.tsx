@@ -15,6 +15,7 @@ import PracticeQuiz from './pages/PracticeQuiz'
 import Favorites from './pages/Favorites'
 import Review from './pages/Review'
 import WrongQuiz from './pages/WrongQuiz'
+import AIInterview from './pages/AIInterview'
 
 function App() {
   //获取当前用户信息
@@ -38,6 +39,7 @@ function App() {
         <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
         <Route path="/review" element={<ProtectedRoute><Review /></ProtectedRoute>} />
         <Route path="/review/quiz" element={<ProtectedRoute><WrongQuiz /></ProtectedRoute>} />
+        <Route path="/ai-interview" element={<ProtectedRoute><AIInterview /></ProtectedRoute>} />
       </Routes>
     </Router>
   )
